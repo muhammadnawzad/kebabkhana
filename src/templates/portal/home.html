@@ -6,7 +6,7 @@
       <div class="content-center order-1 md:order-0 justify-center md:col-span-8 md:text-start">
         <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight dark:text-white md:max-w-2xl md:text-5xl xl:text-6xl">Welcome to Kebabkhana</h1>
         <p class="max-w-2xl mb-3 mb-4 text-gray-500 dark:text-gray-400 md:mb-12 md:text-lg lg:mb-5 lg:text-xl">Don't wait – order the lovely and tasty kebab on your favorite day of the week, Kebab Day!</p>
-        <a href="/auth/signup" class="inline-block rounded-lg bg-primary-700 px-6 py-2 text-center font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Kebab Now!</a>
+        <a href="{% url 'auth:sign_up' %}" class="inline-block rounded-lg bg-primary-700 px-6 py-2 text-center font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Kebab Now!</a>
       </div>
       <div class="md:col-span-4 mt-0 flex justify-center items-center order-0 md:order-1 col-span-1 w-82 mb-8">
         <img src="{% asset 'images/kebab.png' %}" class="object-cover w-full h-full rounded-lg md:rounded-xl md:object-contain md:object-center md:h-96 lg:h-96 xl:h-96" alt="Kebab">
