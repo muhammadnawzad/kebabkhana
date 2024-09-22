@@ -1,7 +1,7 @@
 # Third party requirements.
 require "marten"
 require "marten_auth"
-require "sqlite3"
+require "pg"
 
 # Configuration requirements.
 require "../config/settings/base"
@@ -15,3 +15,6 @@ require "./emails/**"
 require "./handlers/**"
 require "./models/**"
 require "./schemas/**"
+
+# Dependencies.
+require "dotenv"

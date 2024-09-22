@@ -1,6 +1,9 @@
+# Load environment variables from the .env file
+Dotenv.load ".env"
+
 Marten.configure do |config|
   # IMPORTANT: please ensure that the secret key value is kept secret!
-  config.secret_key = "__insecure_d6c626abd975a5544f713ad0af727f77f75f4f7fcc02e2447f7a776d8b3bafc9__"
+  config.secret_key = ENV["SECRET_KEY_BASE"]
 
   # Installed applications
   # https://martenframework.com/docs/development/reference/settings#installed_apps
@@ -16,14 +19,18 @@ Marten.configure do |config|
     MartenAuth::Middleware,
     Marten::Middleware::GZip,
     Marten::Middleware::XFrameOptions,
-    Marten::Middleware::ReferrerPolicy,
+    # Marten::Middleware::ReferrerPolicy,
   ]
 
   # Databases
   # https://martenframework.com/docs/development/reference/settings#database-settings
   config.database do |db| # ameba:disable Naming/BlockParameterName
-    db.backend = :sqlite
-    db.name = Path["kebabkhana.db"].expand
+    db.backend = :postgresql
+    db.host = ENV["DATABASE__HOST"]
+    db.name = ENV["DATABASE__NAME"]
+    db.user = ENV["DATABASE__USERNAME"]
+    db.password = ENV["DATABASE__PASSWORD"]
+    db.port = 5432
   end
 
   # Templates context producers

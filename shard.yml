@@ -7,5 +7,7 @@ dependencies:
   marten_auth:
     github: martenframework/marten-auth
     version: ">= 0.2.0"
-  sqlite3:
-    github: crystal-lang/crystal-sqlite3
+  pg:
+    github: will/crystal-pg
+  dotenv:
+    github: gdotdesign/cr-dotenv
