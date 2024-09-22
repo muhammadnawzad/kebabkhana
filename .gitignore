@@ -8,3 +8,6 @@
 /bin/
 /lib/
 /tmp/
+node_modules/
+src/assets/built/*
+!src/assets/built/.gitkeep

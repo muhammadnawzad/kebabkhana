@@ -11,3 +11,10 @@ dependencies:
     github: will/crystal-pg
   dotenv:
     github: gdotdesign/cr-dotenv
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    branch: master
+  timecop:
+    github: crystal-community/timecop.cr
