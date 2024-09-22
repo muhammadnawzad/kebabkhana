@@ -4,19 +4,23 @@
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
     <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-      <img class="w-12 h-12 mr-2"  src="{% asset 'images/icon.ico' %}" alt="logo">
+      <img class="w-12 h-12 mr-2" src="{% asset 'images/icon.ico' %}" alt="logo">
       Kebabkhana
     </a>
-    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
           Register for an account
         </h1>
 
         {% for error in schema.errors.global %}
-        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-          <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert">
+          <svg class="flex-shrink-0 inline w-4 h-4 mr-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
           </svg>
           <div>
             <span class="font-medium">Error:</span> {{ error.message }}
@@ -27,10 +31,36 @@
         <form class="space-y-4 md:space-y-6" method="post" action="" enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
 
+          <!-- add first_name & last_name -->
           <div>
-            <label for="{{ schema.email.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-            <input type="text" id="{{ schema.email.id }}" name="{{ schema.email.id }}" value="{{ schema.email.value }}"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            <label for="{{ schema.first_name.id }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
+            <input type="text" id="{{ schema.first_name.id }}" name="{{ schema.first_name.id }}"
+              value="{{ schema.first_name.value }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              autocomplete="off" required>
+            {% for error in schema.first_name.errors %}
+            <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+            {% endfor %}
+          </div>
+
+          <div>
+            <label for="{{ schema.last_name.id }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
+            <input type="text" id="{{ schema.last_name.id }}" name="{{ schema.last_name.id }}"
+              value="{{ schema.last_name.value }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              autocomplete="off" required>
+            {% for error in schema.last_name.errors %}
+            <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+            {% endfor %}
+          </div>
+
+          <div>
+            <label for="{{ schema.email.id }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+            <input type="email" id="{{ schema.email.id }}" name="{{ schema.email.id }}" value="{{ schema.email.value }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               autocomplete="off" required>
             {% for error in schema.email.errors %}
             <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
@@ -38,9 +68,11 @@
           </div>
 
           <div>
-            <label for="{{ schema.password1.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-            <input type="password" id="{{ schema.password1.id }}" name="{{ schema.password1.id }}" value="{{ schema.password1.value }}"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            <label for="{{ schema.password1.id }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input type="password" id="{{ schema.password1.id }}" name="{{ schema.password1.id }}"
+              value="{{ schema.password1.value }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               autocomplete="off" required>
             {% for error in schema.password1.errors %}
             <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
@@ -48,22 +80,26 @@
           </div>
 
           <div>
-            <label for="{{ schema.password2.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-            <input type="password" id="{{ schema.password2.id }}" name="{{ schema.password2.id }}" value="{{ schema.password2.value }}"
-              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            <label for="{{ schema.password2.id }}"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+            <input type="password" id="{{ schema.password2.id }}" name="{{ schema.password2.id }}"
+              value="{{ schema.password2.value }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               autocomplete="off" required>
             {% for error in schema.password2.errors %}
             <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
             {% endfor %}
           </div>
 
-          <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+          <button type="submit"
+            class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
             Sign up
           </button>
         </form>
 
         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-          Already have an account? <a href="{% url 'auth:sign_in' %}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
+          Already have an account? <a href="{% url 'auth:sign_in' %}"
+            class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a>
         </p>
       </div>
     </div>

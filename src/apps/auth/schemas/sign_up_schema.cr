@@ -1,5 +1,7 @@
 module Auth
   class SignUpSchema < Marten::Schema
+    field :first_name, :string, max_size: 128, strip: true
+    field :last_name, :string, max_size: 128, strip: true
     field :email, :email
     field :password1, :string, max_size: 128, strip: false
     field :password2, :string, max_size: 128, strip: false

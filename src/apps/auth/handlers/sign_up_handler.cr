@@ -9,7 +9,7 @@ module Auth
     after_successful_schema_validation :sign_up_user
 
     private def sign_up_user
-      new_record = User.new(email: schema.email!)
+      new_record = User.new(email: schema.email!, first_name: schema.first_name!, last_name: schema.last_name!)
       new_record.set_password(schema.password1!)
       new_record.save!
 
