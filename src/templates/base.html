@@ -9,13 +9,7 @@
   </head>
   <body>
     <main>
-      {% if not flash.empty? %}
-      <div class="flashes">
-        {% for key, message in flash %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
-      </div>
-      {% endif %}
+      {% include 'shared/alert.html' with flash=flash %}
       {% block content %}
       {% endblock content %}
     </main>
