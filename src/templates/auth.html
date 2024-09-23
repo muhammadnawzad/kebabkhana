@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% asset 'built/app.css' %}" />
+    <script src="{% asset 'built/app.js' %}" defer></script>
+    <title>{% block title %}kebabkhana{% endblock %}</title>
+  </head>
+  <body>
+    {% include 'shared/navbar.html' %}
+    <main>
+      {% if not flash.empty? %}
+      <div class="flashes">
+        {% for key, message in flash %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% block content %}
+      {% endblock content %}
+    </main>
+  </body>
+</html>

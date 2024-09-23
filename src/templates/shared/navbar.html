@@ -1,0 +1,51 @@
+<header>
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 h-[3.5rem]">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            
+            <!-- Logo -->
+            <a href="/" class="flex items-center">
+                <img src="{% asset 'images/icon.ico' %}" class="mr-3 h-8 w-8" alt="Kebabkhana Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Kebabkhana</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="/" class="block py-2 pr-4 pl-3 text-gray-700 lg:hover:text-primary-700 lg:p-0 dark:text-white  lg:dark:hover:text-white">Home</a>
+                    </li>
+                    <li>
+                        <a href="/orders" class="block py-2 pr-4 pl-3 text-gray-700 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400  dark:hover:text-white lg:dark:hover:text-white">Orders</a>
+                    </li>
+                    <li>
+                        <a href="/items" class="block py-2 pr-4 pl-3 text-gray-700 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400  dark:hover:text-white lg:dark:hover:text-white">Items</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Profile Menu -->
+            <div class="flex items-center lg:order-2">
+                <button type="button" class="flex mx-3 text-sm bg-gray-800 rounded-full focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+                    <span class="sr-only">Open user menu</span>
+                    <svg class="w-8 h-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                </button>
+
+                <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown">
+                    <ul class="py-1" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="/auth/me" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'auth:sign_out' %}" novalidate>
+                                <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
+                                <button type="submit" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
