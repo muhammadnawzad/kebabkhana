@@ -5,6 +5,6 @@ require "./schemas/**"
 
 module Management
   class App < Marten::App
-    label "management"
+    label :management
   end
 end

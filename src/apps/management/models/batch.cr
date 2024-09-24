@@ -5,7 +5,7 @@ module Management
     field :status, :string, max_size: 255, default: "active", null: false, index: true
     with_timestamp_fields
 
-    def active? : Bool 
+    def active? : Bool
       status == "active"
     end
 

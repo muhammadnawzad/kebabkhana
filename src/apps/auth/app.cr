@@ -6,6 +6,6 @@ require "./schemas/**"
 
 module Auth
   class App < Marten::App
-    label "auth"
+    label :auth
   end
 end
