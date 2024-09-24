@@ -18,3 +18,5 @@ development_dependencies:
     branch: master
   timecop:
     github: crystal-community/timecop.cr
+  debug:
+    github: Sija/debug.cr

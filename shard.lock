@@ -1,8 +1,16 @@
 version: 2.0
 shards:
+  ameba:
+    git: https://github.com/crystal-ameba/ameba.git
+    version: 1.6.1+git.commit.f72f0b13303da87483cccea075ef5884e175fdef
+
   db:
     git: https://github.com/crystal-lang/crystal-db.git
     version: 0.13.1
+
+  debug:
+    git: https://github.com/sija/debug.cr.git
+    version: 2.0.3
 
   dotenv:
     git: https://github.com/gdotdesign/cr-dotenv.git
@@ -27,4 +35,8 @@ shards:
   pg:
     git: https://github.com/will/crystal-pg.git
     version: 0.28.0
+
+  timecop:
+    git: https://github.com/crystal-community/timecop.cr.git
+    version: 0.5.0
 
