@@ -1,4 +1,3 @@
-require "./emails/**"
 require "./handlers/**"
 require "./models/**"
 require "./routes"
