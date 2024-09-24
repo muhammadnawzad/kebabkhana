@@ -18,5 +18,5 @@ require "./schemas/**"
 
 # Dependencies.
 require "dotenv"
-require "./apps/kebab/app"
+require "./apps/management/app"
 require "debug"

@@ -3,8 +3,8 @@ require "./models/**"
 require "./routes"
 require "./schemas/**"
 
-module Kebab
+module Management
   class App < Marten::App
-    label "kebab"
+    label "management"
   end
 end

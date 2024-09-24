@@ -9,7 +9,7 @@
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Batches</h1>
       <!-- Modal Trigger Button -->
       <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
-        href="{% url 'kebab:create_batch' %}">
+        href="{% url 'management:create_batch' %}">
         + New
       </a>
     </div>
@@ -20,7 +20,7 @@
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
 
         <!-- Toggle Active/Inactive Form -->
-        <form class="absolute top-5 right-3" method="post" action="{% url 'kebab:update_batch' pk: batch.id %}"
+        <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_batch' pk: batch.id %}"
           enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
           <input type="hidden" name="name" value="{{ batch.name }}">
@@ -57,7 +57,7 @@
         </p>
 
         <!-- Update Button -->
-        <a href="{% url 'kebab:update_batch' pk: batch.id %}"
+        <a href="{% url 'management:update_batch' pk: batch.id %}"
           class="inline-block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 text-center rounded-lg text-sm">
           Update
         </a>

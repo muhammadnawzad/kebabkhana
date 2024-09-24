@@ -1,4 +1,4 @@
-module Kebab
+module Management
   class ListOrdersHandler < Marten::Handlers::Template
     include Auth::RequireSignedInUser
 

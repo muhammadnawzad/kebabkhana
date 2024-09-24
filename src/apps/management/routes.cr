@@ -1,4 +1,4 @@
-module Kebab
+module Management
   ROUTES = Marten::Routing::Map.draw do
     path "/orders", ListOrdersHandler, name: "orders"
     path "/create-batch", Batches::CreateHandler, name: "create_batch"

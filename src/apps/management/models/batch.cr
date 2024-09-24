@@ -1,4 +1,4 @@
-module Kebab
+module Management
   class Batch < Marten::Model
     field :id, :big_int, primary_key: true, auto: true
     field :name, :string, max_size: 255, unique: true, index: true
@@ -13,11 +13,11 @@ module Kebab
       status == "inactive"
     end
 
-    def active : Kebab::Batch::QuerySet
+    def active : Management::Batch::QuerySet
       Batch.filter(status: "active")
     end
 
-    def inactive : Kebab::Batch::QuerySet
+    def inactive : Management::Batch::QuerySet
       Batch.filter(status: "inactive")
     end
 

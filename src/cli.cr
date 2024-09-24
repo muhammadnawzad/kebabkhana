@@ -9,4 +9,4 @@ require "marten/cli"
 # Project CLI requirements.
 require "./apps/auth/cli"
 require "./migrations/**"
-require "./apps/kebab/cli"
+require "./apps/management/cli"

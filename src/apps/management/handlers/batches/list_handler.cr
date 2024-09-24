@@ -1,4 +1,4 @@
-module Kebab
+module Management
     module Batches
         class ListHandler < Marten::Handlers::RecordList
             include Auth::RequireSignedInUser

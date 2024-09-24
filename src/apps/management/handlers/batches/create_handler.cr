@@ -1,4 +1,4 @@
-module Kebab
+module Management
   module Batches
     class CreateHandler < Marten::Handlers::RecordCreate
       include Auth::RequireSignedInUser
@@ -6,7 +6,7 @@ module Kebab
       model Batch
       schema BatchCreateSchema
       template_name "batches/create.html"
-      success_route_name "kebab:list_batches"
+      success_route_name "management:list_batches"
 
       after_successful_schema_validation :add_success_flash
       after_failed_schema_validation :add_error_flash
