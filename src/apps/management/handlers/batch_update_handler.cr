@@ -5,7 +5,7 @@ module Management
 
     model Batch
     schema BatchUpdateSchema
-    template_name "batch_update.html"
+    template_name "batch/update.html"
     success_route_name "management:list_batches"
   end
 end

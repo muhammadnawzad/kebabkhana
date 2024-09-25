@@ -5,7 +5,7 @@ module Management
     
     model Batch
     schema BatchCreateSchema
-    template_name "batch_create.html"
+    template_name "batch/create.html"
     success_route_name "management:list_batches"
   end
 end

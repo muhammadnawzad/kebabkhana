@@ -5,7 +5,7 @@ module Management
 
     model Item
     schema ItemCreateSchema
-    template_name "item_create.html"
+    template_name "item/create.html"
     success_route_name "management:list_items"
   end
 end

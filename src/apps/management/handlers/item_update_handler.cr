@@ -5,7 +5,7 @@ module Management
 
     model Item
     schema ItemUpdateSchema
-    template_name "item_update.html"
+    template_name "item/update.html"
     success_route_name "management:list_items"
   end
 end
