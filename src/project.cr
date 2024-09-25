@@ -13,8 +13,8 @@ require "../config/initializers/**"
 
 # Project requirements.
 require "./apps/auth/app"
-require "./apps/management/app"
 require "./handlers/**"
+require "./apps/management/app"
 require "./emails/**"
 require "./models/**"
 require "./schemas/**"
