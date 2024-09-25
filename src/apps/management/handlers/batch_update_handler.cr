@@ -1,5 +1,5 @@
 module Management
-  class UpdateHandler < Marten::Handlers::RecordUpdate
+  class BatchUpdateHandler < Marten::Handlers::RecordUpdate
     include Auth::RequireSignedInUser
 
     model Batch

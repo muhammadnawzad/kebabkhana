@@ -1,5 +1,5 @@
 module Management
-  class CreateHandler < Marten::Handlers::RecordCreate
+  class BatchCreateHandler < Marten::Handlers::RecordCreate
     include Auth::RequireSignedInUser
 
     model Batch
