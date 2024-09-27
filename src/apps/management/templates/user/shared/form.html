@@ -1,0 +1,96 @@
+{% for error in schema.errors.global %}
+<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+    <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor" viewBox="0 0 20 20">
+        <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+    </svg>
+    <div>
+        <span class="font-medium">Error:</span> {{ error.message }}
+    </div>
+</div>
+{% endfor %}
+
+<form class="space-y-4 md:space-y-6" method="post" action="" enctype="multipart/form-data">
+    <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
+
+    <div>
+        <label for="{{ schema.first_name.id }}"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
+        <input type="text" id="{{ schema.first_name.id }}" name="{{ schema.first_name.id }}"
+          value="{{ schema.first_name.value }}"
+          class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          autocomplete="off" required>
+        {% for error in schema.first_name.errors %}
+        <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+      </div>
+
+      <div>
+        <label for="{{ schema.last_name.id }}"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
+        <input type="text" id="{{ schema.last_name.id }}" name="{{ schema.last_name.id }}"
+          value="{{ schema.last_name.value }}"
+          class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          autocomplete="off" required>
+        {% for error in schema.last_name.errors %}
+        <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+      </div>
+
+      <div>
+        <label for="{{ schema.email.id }}"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+        <input type="email" id="{{ schema.email.id }}" name="{{ schema.email.id }}" value="{{ schema.email.value }}"
+          class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          autocomplete="off" required>
+        {% for error in schema.email.errors %}
+        <p class="text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+      </div>
+
+    <div>
+        <label for="{{ schema.role.id }}"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+        <select id="{{ schema.role.id }}" name="{{ schema.role.id }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required>
+            <option value="">Select a role</option>
+            <option value="admin" {% if schema.role.value == 'admin' %}selected{% endif %}>Admin</option>
+            <option value="client" {% if schema.role.value == 'client' %}selected{% endif %}>Client</option>
+        </select>
+        {% for error in schema.role.errors %}
+        <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        <label for="{{ schema.status.id }}"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+        <select id="{{ schema.status.id }}" name="{{ schema.status.id }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required>
+            <option value="">Select a status</option>
+            <option value="active" {% if schema.status.value == 'active' %}selected{% endif %}>Active</option>
+            <option value="inactive" {% if schema.status.value == 'inactive' %}selected{% endif %}>Inactive</option>
+        </select>
+        {% for error in schema.status.errors %}
+        <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        <label for="{{ schema.balance.id }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Balance in IQD</label>
+        <input type="number" id="{{ schema.balance.id }}" name="{{ schema.balance.id }}" value="{{ schema.balance.value }}"
+            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            autocomplete="off" required>
+        {% for error in schema.balance.errors %}
+        <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+        {% endfor %}
+    </div>
+
+    <button type="submit"
+        class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+        {{ button_label }}
+    </button>
+</form>
