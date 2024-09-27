@@ -7,5 +7,7 @@ module Management
     path "/items/new", ItemCreateHandler, name: "create_item"
     path "/items", ItemListHandler, name: "list_items"
     path "/items/edit/<pk:int>", ItemUpdateHandler, name: "update_item"
+    path "/users", UserListHandler, name: "list_users"
+    # path "/users/edit/<pk:int>", UserUpdateHandler, name: "update_user"
   end
 end
