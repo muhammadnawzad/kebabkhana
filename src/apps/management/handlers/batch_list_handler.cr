@@ -1,16 +1,12 @@
 module Management
   class BatchListHandler < Marten::Handlers::RecordList
+    property active_nav_item : String = "batches"
+
     include Auth::RequireSignedInUser
     include Auth::RequireAdminUser
-
-    before_dispatch :require_admin
-    before_render :set_active_nav_item
+    include NavItemActivateable
 
     template_name "batch/list.html"
     model Batch
-
-    private def set_active_nav_item
-      context[:active_nav_item] = "batches"
-    end
   end
 end

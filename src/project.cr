@@ -12,8 +12,9 @@ require "../config/settings/**"
 require "../config/initializers/**"
 
 # Project requirements.
+require "./handlers/concern/*"
 require "./apps/auth/app"
-require "./handlers/**"
+require "./handlers/*"
 require "./apps/management/app"
 require "./emails/**"
 require "./models/**"
