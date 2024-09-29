@@ -5,7 +5,7 @@ class Migration::Management::V202409241627099 < Marten::Migration
     create_table :management_item do
       column :id, :big_int, primary_key: true, auto: true
       column :name, :string, max_size: 255, null: false, unique: true, index: true
-      column :price, :int, null: false
+      column :price, :int, null: false, default: 0
       column :status, :string, max_size: 255, null: false, index: true, default: "active"
       column :created_at, :date_time
       column :updated_at, :date_time
