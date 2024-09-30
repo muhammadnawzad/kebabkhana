@@ -68,7 +68,7 @@
         </form>
 
         <p class="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
-          <a href="{% url 'management:orders' %}"
+          <a href="{% url 'management:list_orders' %}"
             class="font-medium text-primary-600 hover:underline dark:text-primary-500">
             Return to orders page
           </a>
@@ -124,10 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => response.json())
     .then(result => {
-      window.location.href = '{% url "management:orders" %}';
+      window.location.href = '{% url "management:list_orders" %}';
     })
     .catch(error => {
-      window.location.href = '{% url "management:orders" %}';
+      window.location.href = '{% url "management:list_orders" %}';
     });
   });
 

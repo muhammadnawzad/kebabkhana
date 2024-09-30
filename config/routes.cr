@@ -4,7 +4,6 @@ Marten.routes.draw do
   path "/management", Management::ROUTES, name: "management"
   path "/auth", Auth::ROUTES, name: "auth"
   path "/", HomeHandler, name: "home"
-  path "/order/create", OrderCreateHandler, name: "order_create"
 
   if Marten.env.development?
     path "#{Marten.settings.assets.url}<path:path>", Marten::Handlers::Defaults::Development::ServeAsset, name: "asset"

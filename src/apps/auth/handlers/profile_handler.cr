@@ -2,7 +2,7 @@ require "./concerns/*"
 
 module Auth
   class ProfileHandler < Marten::Handlers::Template
-    property active_nav_item : String = "home"
+    property active_nav_item : String = "profile"
 
     include RequireSignedInUser
     include NavItemActivateable
