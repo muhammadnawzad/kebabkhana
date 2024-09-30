@@ -2,21 +2,43 @@
 
 {% block content %}
 <section class="bg-gray-50 dark:bg-gray-900">
-    <div
-        class="py-8 px-4 mx-auto text-center lg:py-16 lg:px-12 min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center">
-        <h1
-            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+    <div class="py-8 px-4 mx-auto text-center lg:py-16 lg:px-12 min-h-[calc(100vh-3.5rem)] flex flex-col items-center justify-center">
+        {% if pending_payments > 0 %}
+        <div class="flex items-center p-4 mb-6 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 ring-2 dark:ring-red-900 dark:text-red-400" role="alert">
+          <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <div>
+            <span class="font-bold">You have pending payments!</span> You have <span class="font-bold">{{ pending_payments }}</span> pending payments. Please pay your pending payments as soon as possible.
+          </div>
+        </div>
+        {% endif %}
+
+        <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 sm:4xl md:text-5xl lg:text-6xl dark:text-white">
             Celebrate Kebab Day with Kebabkhana!</h1>
-        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Kebab Day is
+        <p class="mb-8 text-md font-normal text-gray-500 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">Kebab Day is
             the best part of your Thursday! Whether you’re a fan of tender sada, juicy ma7shi, or delicious sour chicken
             tikka, Kebabkhana has got you covered. Place your order now and make your workday special with a freshly
             prepared kebab meal. Don't miss out on the weekly tradition – gather your coworkers and get your orders in
             today at Kebabkhana!</p>
         <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-            <a href="{% url 'management:create_order' %}"
-                class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                Order Now!
-            </a>
+            {% if has_already_ordered %}
+                <a href="#"
+                    class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 disabled">
+                    You have ordered!
+                </a>
+            {% elsif pending_payments > 0 %}
+                <a href="#"
+                    class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 disabled">
+                    You have pending payments!
+                </a>
+            {% else %}
+                <a href="{% url 'management:create_order' %}"
+                    class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    Order Now!
+                </a>
+            {% endif %}
+
         </div>
     </div>
     </div>
