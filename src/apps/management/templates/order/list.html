@@ -7,11 +7,6 @@
     <!-- Page Title and Create Button -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Orders</h1>
-      <!-- Modal Trigger Button -->
-      <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
-        href="{% url 'management:create_order' %}">
-        + New
-      </a>
     </div>
 
     <!-- Orders List -->
@@ -20,7 +15,7 @@
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
 
         <!-- Toggle Paid/Unpaid Form -->
-        <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_item' pk: order.id %}"
+        <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_order' pk: order.id %}"
           enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
           <input type="hidden" name="name" value="{{ order.name }}">
@@ -28,19 +23,18 @@
           <button type="submit">
             {% if order.paid? %}
             <!-- Trash Icon to make it unpaid -->
-            <svg class="w-6 h-6 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-              viewBox="0 0 24 24">
-              <path fill-rule="evenodd"
-                d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                clip-rule="evenodd" />
+            <svg class="w-6 h-6 text-red-800 dark:text-red-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
             </svg>
+
             {% else %}
             <!-- Undo Icon to make it paid -->
-            <svg class="w-6 h-6 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4" />
+            <svg class="w-6 h-6 text-green-800 dark:text-green-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" clip-rule="evenodd"/>
+              <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
             </svg>
+            
             {% endif %}
           </button>
         </form>

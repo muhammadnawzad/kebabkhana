@@ -2,6 +2,7 @@ module Management
   ROUTES = Marten::Routing::Map.draw do
     path "/orders", OrderListHandler, name: "list_orders"
     path "/orders/new", OrderCreateHandler, name: "create_order"
+    path "/orders/edit/<pk:int>", OrderUpdateHandler, name: "update_order"
     
     path "/batches/new", BatchCreateHandler, name: "create_batch"
     path "/batches", BatchListHandler, name: "list_batches"

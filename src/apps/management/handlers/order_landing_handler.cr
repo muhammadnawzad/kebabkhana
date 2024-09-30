@@ -7,7 +7,7 @@ module Management
 
     def get
       active_batch = Batch.active
-      has_already_ordered = Order.filter(user_id: request.user!.id, batch_id: active_batch.first.not_nil!.id).count > 0
+      has_already_ordered = Order.filter(user_id: request.user!.id, batch_id: active_batch.first.not_nil!.id).count > 0 if active_batch.count > 0
       pending_payments = Order.filter(user_id: request.user!.id, status: "unpaid").sum(:total) || 0
 
       render("home/index.html", context: {has_already_ordered: has_already_ordered, pending_payments: pending_payments})
