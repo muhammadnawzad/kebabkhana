@@ -13,11 +13,11 @@ class Item < Marten::Model
     status == "unavailable"
   end
 
-  def available : Item::QuerySet
+  def self.available : Item::QuerySet
     Item.filter(status: "available")
   end
 
-  def unavailable : Item::QuerySet
+  def self.unavailable : Item::QuerySet
     Item.filter(status: "unavailable")
   end
 

@@ -12,11 +12,11 @@ class Batch < Marten::Model
     status == "inactive"
   end
 
-  def active : Batch::QuerySet
+  def self.active : Batch::QuerySet
     Batch.filter(status: "active")
   end
 
-  def inactive : Batch::QuerySet
+  def self.inactive : Batch::QuerySet
     Batch.filter(status: "inactive")
   end
 

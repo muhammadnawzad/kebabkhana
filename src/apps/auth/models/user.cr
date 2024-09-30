@@ -19,11 +19,11 @@ module Auth
       role == "client"
     end
   
-    def admin : Auth::User::QuerySet
+    def self.admin : Auth::User::QuerySet
       User.filter(role: "admin")
     end
   
-    def client : Auth::User::QuerySet
+    def self.client : Auth::User::QuerySet
       User.filter(role: "client")
     end
   
@@ -40,11 +40,11 @@ module Auth
       status == "inactive"
     end
 
-    def active : Auth::User::QuerySet
+    def self.active : Auth::User::QuerySet
       User.filter(status: "active")
     end
 
-    def inactive : Auth::User::QuerySet
+    def self.inactive : Auth::User::QuerySet
       User.filter(status: "inactive")
     end
 
