@@ -6,7 +6,15 @@ module Management
     include NavItemActivateable
 
     def get
-      render("order/create.html", context: {batches: Batch.active, items: Item.available})
+      active_batch = Batch.active
+
+      if active_batch.count != 1
+        flash[:error] = "Multiple active batches or no active batch found, please make sure there is only one active batch!"
+        redirect reverse("landing")
+      else
+        has_already_ordered = Order.filter(user_id: request.user!.id, batch_id: active_batch.first.not_nil!.id).count > 0
+        render("order/create.html", context: {items: Item.available, has_already_ordered: has_already_ordered})
+      end
     end
 
     def post

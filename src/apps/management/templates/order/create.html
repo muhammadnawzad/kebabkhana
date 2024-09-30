@@ -7,65 +7,77 @@
       <div class="mx-auto max-w-3xl">
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Create a New Order</h2>
 
-        <!-- Move the table and form inputs inside the form -->
-        <form id="order-form" class="space-y-4 mt-6 md:space-y-6">
-          <input type="hidden" id="csrftoken" name="csrftoken" value="{% csrf_token %}" />
 
-          <div class="relative mt-6 overflow-x-auto border-b border-gray-200 dark:border-gray-800 sm:mt-8">
-            <table class="w-full text-left text-base text-gray-900 dark:text-white md:table-fixed">
-              <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-                {% for item in items %}
-                <tr>
-                  <td class="w-96 py-4 truncate">
-                    <label for="item-{{ item.id }}" class="mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
-                      {{ item.name }}
-                    </label>
-                    <!-- Hidden input to track item ID -->
-                    <input type="hidden" name="id" value="{{ item.id }}">
-                  </td>
-
-                  <td class="p-4">
-                    <div class="flex items-center">
-                      <button type="button" data-action="decrement" data-item-id="{{ item.id }}" class="decrement-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
-                        </svg>
-                      </button>
-
-                      <input type="text" name="quantity" id="counter-input-{{ item.id }}" data-input-counter data-input-counter-min="0"
-                        class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white" value="0"/>
-
-                      <button type="button" data-action="increment" data-item-id="{{ item.id }}" class="increment-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-
-                  <td class="p-4 text-end text-base font-bold text-gray-900 dark:text-white text-xs sm:text-sm">
-                    <!-- Display item price -->
-                    <span id="item-price-{{ item.id }}">{{ item.price }}</span>
-                  </td>
-
-                  <!-- Hidden input for item total -->
-                  <input type="hidden" name="total" id="item-total-{{ item.id }}" value="0">
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+        {% if has_already_ordered %}
+          <div class="flex items-center p-4 my-8 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <div>
+              <span class="font-medium">You have ordered!</span> You have already placed an order for today. Please wait until next Kebab Day to place another order.
+            </div>
           </div>
+        {% else %}
+          <!-- Move the table and form inputs inside the form -->
+          <form id="order-form" class="space-y-4 mt-6 md:space-y-6">
+            <input type="hidden" id="csrftoken" name="csrftoken" value="{% csrf_token %}" />
 
-          <div class="mt-4">
-            <p class="text-xl font-semibold text-gray-900 dark:text-white">Order Total: <span id="order-total">0</span></p>
-            <input type="hidden" name="total" id="total-field" value="0">
-          </div>
+            <div class="relative mt-6 overflow-x-auto border-b border-gray-200 dark:border-gray-800 sm:mt-8">
+              <table class="w-full text-left text-base text-gray-900 dark:text-white md:table-fixed">
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                  {% for item in items %}
+                  <tr>
+                    <td class="w-96 py-4 truncate">
+                      <label for="item-{{ item.id }}" class="mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
+                        {{ item.name }}
+                      </label>
+                      <!-- Hidden input to track item ID -->
+                      <input type="hidden" name="id" value="{{ item.id }}">
+                    </td>
 
-          <button type="submit"
-            class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-            Create Order
-          </button>
-        </form>
+                    <td class="p-4">
+                      <div class="flex items-center">
+                        <button type="button" data-action="decrement" data-item-id="{{ item.id }}" class="decrement-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                          <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                          </svg>
+                        </button>
+
+                        <input type="text" name="quantity" id="counter-input-{{ item.id }}" data-input-counter data-input-counter-min="0"
+                          class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white" value="0"/>
+
+                        <button type="button" data-action="increment" data-item-id="{{ item.id }}" class="increment-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                          <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+
+                    <td class="p-4 text-end text-base font-bold text-gray-900 dark:text-white text-xs sm:text-sm">
+                      <!-- Display item price -->
+                      <span id="item-price-{{ item.id }}">{{ item.price }}</span>
+                    </td>
+
+                    <!-- Hidden input for item total -->
+                    <input type="hidden" name="total" id="item-total-{{ item.id }}" value="0">
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-xl font-semibold text-gray-900 dark:text-white">Order Total: <span id="order-total">0</span></p>
+              <input type="hidden" name="total" id="total-field" value="0">
+            </div>
+
+            <button type="submit"
+              class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              Create Order
+            </button>
+          </form>
+        {% endif %}
 
         <p class="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
           <a href="{% url 'management:list_orders' %}"
