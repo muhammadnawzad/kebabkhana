@@ -124,10 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(response => response.json())
     .then(result => {
-      window.location.href = '{% url "management:list_orders" %}';
+      window.location.href = '{% url "landing" %}';
     })
     .catch(error => {
-      window.location.href = '{% url "management:list_orders" %}';
+      window.location.href = '{% url "landing" %}';
     });
   });
 

@@ -5,7 +5,7 @@ module Auth
     end
 
     private def require_anonymous_user
-      redirect reverse("auth:profile") if request.user?
+      redirect reverse("landing") if request.user?
     end
   end
 end
