@@ -1,0 +1,171 @@
+{% extend "auth.html" %}
+
+{% block content %}
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-[calc(100vh-3.5rem)] lg:py-0">
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Create a New Order</h2>
+
+        <!-- Move the table and form inputs inside the form -->
+        <form id="order-form" class="space-y-4 mt-6 md:space-y-6">
+          <input type="hidden" id="csrftoken" name="csrftoken" value="{% csrf_token %}" />
+
+          <div class="relative mt-6 overflow-x-auto border-b border-gray-200 dark:border-gray-800 sm:mt-8">
+            <table class="w-full text-left text-base text-gray-900 dark:text-white md:table-fixed">
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                {% for item in items %}
+                <tr>
+                  <td class="w-96 py-4 truncate">
+                    <label for="item-{{ item.id }}" class="mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
+                      {{ item.name }}
+                    </label>
+                    <!-- Hidden input to track item ID -->
+                    <input type="hidden" name="id" value="{{ item.id }}">
+                  </td>
+
+                  <td class="p-4">
+                    <div class="flex items-center">
+                      <button type="button" data-action="decrement" data-item-id="{{ item.id }}" class="decrement-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                        </svg>
+                      </button>
+
+                      <input type="text" name="quantity" id="counter-input-{{ item.id }}" data-input-counter data-input-counter-min="0"
+                        class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white" value="0"/>
+
+                      <button type="button" data-action="increment" data-item-id="{{ item.id }}" class="increment-btn inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+
+                  <td class="p-4 text-end text-base font-bold text-gray-900 dark:text-white text-xs sm:text-sm">
+                    <!-- Display item price -->
+                    <span id="item-price-{{ item.id }}">{{ item.price }}</span>
+                  </td>
+
+                  <!-- Hidden input for item total -->
+                  <input type="hidden" name="total" id="item-total-{{ item.id }}" value="0">
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-4">
+            <p class="text-xl font-semibold text-gray-900 dark:text-white">Order Total: <span id="order-total">0</span></p>
+            <input type="hidden" name="total" id="total-field" value="0">
+          </div>
+
+          <button type="submit"
+            class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            Create Order
+          </button>
+        </form>
+
+        <p class="text-sm font-light text-gray-500 dark:text-gray-400 mt-4">
+          <a href="{% url 'management:orders' %}"
+            class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+            Return to orders page
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('order-form');
+  const incrementButtons = document.querySelectorAll('[data-action="increment"]');
+  const decrementButtons = document.querySelectorAll('[data-action="decrement"]');
+
+  incrementButtons.forEach(button => button.addEventListener('click', incrementQuantity));
+  decrementButtons.forEach(button => button.addEventListener('click', decrementQuantity));
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    const items = [];
+
+    const itemIds = document.querySelectorAll('input[name="id"]');
+    const itemQuantities = document.querySelectorAll('input[name="quantity"]');
+    const itemTotals = document.querySelectorAll('input[name="total"]');
+
+    for (let i = 0; i < itemIds.length; i++) {
+      items.push({
+        id: itemIds[i].value,
+        quantity: itemQuantities[i].value,
+        total: itemTotals[i].value
+      });
+    }
+
+    const data = {
+      items: items,
+      total: document.getElementById('total-field').value
+    };
+
+    // Get CSRF token from the hidden input
+    const csrfToken = document.getElementById('csrftoken').value;
+
+    // Send the data using Fetch
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken // Send CSRF token as a header
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      window.location.href = '{% url "management:orders" %}';
+    })
+    .catch(error => {
+      window.location.href = '{% url "management:orders" %}';
+    });
+  });
+
+  function incrementQuantity(event) {
+    const itemId = event.target.closest('button').getAttribute('data-item-id');
+    const inputField = document.getElementById(`counter-input-${itemId}`);
+    inputField.value = parseInt(inputField.value) + 1;
+    updateTotals(itemId);
+  }
+
+  function decrementQuantity(event) {
+    const itemId = event.target.closest('button').getAttribute('data-item-id');
+    const inputField = document.getElementById(`counter-input-${itemId}`);
+    if (parseInt(inputField.value) > 0) {
+      inputField.value = parseInt(inputField.value) - 1;
+    }
+    updateTotals(itemId);
+  }
+
+  function updateTotals(itemId) {
+    const quantity = parseInt(document.getElementById(`counter-input-${itemId}`).value);
+    const price = parseFloat(document.getElementById(`item-price-${itemId}`).textContent);
+    const totalField = document.getElementById(`item-total-${itemId}`);
+    const itemTotal = quantity * price;
+    
+    totalField.value = itemTotal;
+    
+    // Update order total
+    let orderTotal = 0;
+    document.querySelectorAll('[id^="item-total-"]').forEach(item => {
+      orderTotal += parseFloat(item.value);
+    });
+
+    document.getElementById('order-total').textContent = orderTotal;
+    document.getElementById('total-field').value = orderTotal;
+  }
+});
+
+</script>
+
+{% endblock content %}

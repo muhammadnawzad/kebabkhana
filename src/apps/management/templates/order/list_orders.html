@@ -2,9 +2,96 @@
 
 {% block content %}
 <section class="bg-gray-50 dark:bg-gray-900">
-  <!-- h-screen minus 64px -->
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 min-h-[calc(100vh-3.5rem)]">
-    <h1>flow</h1>
+  <div class="max-w-screen-lg mx-auto py-8 px-6">
+
+    <!-- Page Title and Create Button -->
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Orders</h1>
+      <!-- Modal Trigger Button -->
+      <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
+        href="{% url 'order_create' %}">
+        + New
+      </a>
+    </div>
+
+    <!-- Orders List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for order in records %}
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
+
+        <!-- Toggle Paid/Unpaid Form -->
+        <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_item' pk: order.id %}"
+          enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
+          <input type="hidden" name="name" value="{{ order.name }}">
+          <input type="hidden" name="status" value="{% if order.paid? %}unpaid{% else %}paid{% endif %}">
+          <button type="submit">
+            {% if order.paid? %}
+            <!-- Trash Icon to make it unpaid -->
+            <svg class="w-6 h-6 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 24 24">
+              <path fill-rule="evenodd"
+                d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                clip-rule="evenodd" />
+            </svg>
+            {% else %}
+            <!-- Undo Icon to make it paid -->
+            <svg class="w-6 h-6 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4" />
+            </svg>
+            {% endif %}
+          </button>
+        </form>
+
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 truncate w-2/3">
+          {{ order.user.full_name }}
+        </h2>
+
+
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+          {% if order.paid? %}
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Paid</span>
+          {% else %}
+          <span
+            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Unpaid</span>
+          {% endif %}
+
+          <span
+            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
+            {{ order.batch.name }}
+          </span>
+        </p>
+
+        {% if order.order_items.size > 0 %}
+        <div class="mb-3">
+          <p class="text-sm text-gray-700 dark:text-gray-300 font-bold mb-1">
+            Items:
+          </p>
+          <ul class="max-w-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 truncate text-sm">
+            {% for order_item in order.order_items %}
+            <li>{{ order_item.item.name }} (x{{ order_item.quantity }})</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-12 font-bold">
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">{{ order.total }} IQD</span>
+        </p>
+
+        <!-- Update Button -->
+        <!--  stick button to buttom -->
+        <a href="{% url 'management:update_item' pk: order.id %}"
+          class="absolute bottom-4 right-4 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-2 rounded-lg text-sm">
+          Update
+        </a>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
+
 {% endblock content %}
