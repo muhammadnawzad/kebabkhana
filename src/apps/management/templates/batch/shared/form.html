@@ -33,7 +33,7 @@
             required>
             <option value="">Select a status</option>
             <option value="active" {% if schema.status.value == 'active' %}selected{% endif %}>Active</option>
-            <option value="inactive" {% if schema.status.value == 'inactive' %}selected{% endif %}>Inactive</option>
+            <option value="locked" {% if schema.status.value == 'locked' %}selected{% endif %}>Locked</option>
         </select>
         {% for error in schema.status.errors %}
         <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>

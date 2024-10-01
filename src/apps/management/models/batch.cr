@@ -47,19 +47,19 @@ class Batch < Marten::Model
     status == "active"
   end
 
-  def inactive? : Bool
-    status == "inactive"
+  def locked? : Bool
+    status == "locked"
   end
 
   def self.active : Batch::QuerySet
     Batch.filter(status: "active")
   end
 
-  def self.inactive : Batch::QuerySet
-    Batch.filter(status: "inactive")
+  def self.locked : Batch::QuerySet
+    Batch.filter(status: "locked")
   end
 
   def self.statuses : Array(String)
-    ["active", "inactive"]
+    ["active", "locked"]
   end
 end
