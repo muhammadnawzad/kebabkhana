@@ -8,7 +8,7 @@ module Management
     def post
       order.delete
 
-      redirect reverse("management:list_orders")
+      redirect request.headers.fetch("Referer").not_nil!
     end
 
     private def order : Order
