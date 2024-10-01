@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for order in records %}
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
-
+          {% if request.user.admin? %}
           <button data-modal-target="popup-modal-{{ order.id }}" data-modal-toggle="popup-modal-{{ order.id }}"
               class="absolute top-5 right-3 block text-red-600 hover:text-red-800 dark:text-red-700 dark:hover:text-red-500"
               type="button">
@@ -49,6 +49,7 @@
               {% endif %}
             </button>
           </form>
+          {% endif %}
 
           <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 truncate w-2/3">
             {{ order.user.full_name }}
@@ -82,16 +83,18 @@
           </div>
           {% endif %}
 
-          <p class="text-sm text-gray-700 dark:text-gray-300 mb-12 font-bold">
+          <p class="text-sm text-gray-700 dark:text-gray-300 font-bold {% if request.user.admin? %}mb-12{% endif %}">
             <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
               {{ order.total }} IQD
             </span>
           </p>
 
+          {% if request.user.admin? %}
           <div
             class="absolute bottom-4 right-4 bg-gray-700 text-white font-medium py-2 px-2 rounded-lg text-sm disabled">
             Update (TBA)
-        </div>
+          </div>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
