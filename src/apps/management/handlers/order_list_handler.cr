@@ -10,9 +10,9 @@ module Management
 
     def queryset
       if request.user.not_nil!.admin?
-        super
+        super.order("-created_at")
       else
-        super.filter(user_id: request.user.not_nil!.id)
+        super.filter(user_id: request.user.not_nil!.id).order("-created_at")
       end
     end
   end

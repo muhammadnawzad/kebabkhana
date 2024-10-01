@@ -8,5 +8,9 @@ module Management
 
     template_name "user/list.html"
     model Auth::User
+
+    def queryset
+      super.order("-created_at")
+    end
   end
 end

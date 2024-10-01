@@ -8,5 +8,9 @@ module Management
 
     template_name "batch/list.html"
     model Batch
+
+    def queryset
+      super.order("-created_at")
+    end
   end
 end
