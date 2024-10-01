@@ -4,22 +4,18 @@
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="max-w-screen-lg mx-auto py-8 px-6">
 
-    <!-- Page Title and Create Button -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Batches</h1>
-      <!-- Modal Trigger Button -->
       <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
         href="{% url 'management:create_batch' %}">
         + New
       </a>
     </div>
 
-    <!-- Batches List -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for batch in records %}
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
 
-        <!-- Toggle Active/Inactive Form -->
         <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_batch' pk: batch.id %}"
           enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
@@ -27,7 +23,6 @@
           <input type="hidden" name="status" value="{% if batch.active? %}inactive{% else %}active{% endif %}">
           <button type="submit">
             {% if batch.active? %}
-            <!-- Trash Icon to Deactivate -->
             <svg class="w-6 h-6 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
               viewBox="0 0 24 24">
               <path fill-rule="evenodd"
@@ -35,7 +30,6 @@
                 clip-rule="evenodd" />
             </svg>
             {% else %}
-            <!-- Undo Icon to Activate -->
             <svg class="w-6 h-6 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -45,20 +39,81 @@
           </button>
         </form>
 
-        <!-- Batch Information -->
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ batch.name }}</h2>
+
         <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
-          Status:
           {% if batch.active? %}
-          <span class="text-green-600">Active</span>
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Active</span>
           {% else %}
-          <span class="text-red-600">Inactive</span>
+          <span
+            class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Inactive</span>
           {% endif %}
+
+          <span
+            class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
+            {{ batch.order_count }} Orders
+          </span>
         </p>
 
-        <!-- Update Button -->
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-12 font-bold">
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+            Total: {{ batch.total }} IQD
+          </span>
+
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded dark:bg-green-900 dark:text-gray-400 border border-gray-500">
+            Total Paid: {{ batch.total_paid }} IQD
+          </span>
+        </p>
+
+        <div class="mb-16">
+          {% if batch.order_count > 0 %}
+          <div class="relative overflow-x-auto mb-4">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-4 py-1  dark:border-gray-600">
+                    Item
+                  </th>
+                  <th scope="col" class="px-4 py-1  dark:border-gray-600">
+                    Qty
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in batch.items %}
+                <tr class="bg-white dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600">
+                  <th scope="row" class="px-4 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white dark:border-gray-600">
+                    {{ item.first }}
+                  </th>
+                  <td class="px-4 py-1 dark:border-gray-600">
+                    {{ item.last }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr class="text-gray-900 dark:text-white dark:border-gray-600">
+                  <th scope="row" class="px-4 pt-4 dark:border-gray-600">Total</th>
+                  <td class="px-4 pt-4" colspan="2">{{ batch.total }} IQD</td>
+                </tr>
+          
+                <tr class="text-gray-900 dark:text-white dark:border-gray-600 ">
+                  <th scope="row" class="px-4 dark:border-gray-600">Paid</th>
+                  <td class="px-4 py-1" colspan="2">{{ batch.total_paid }} IQD</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          {% else %}
+          <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+            No items in this batch
+          </p>
+          {% endif %}
+        </div>
+
         <a href="{% url 'management:update_batch' pk: batch.id %}"
-          class="inline-block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 text-center rounded-lg text-sm">
+          class="absolute bottom-4 right-4 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-2 rounded-lg text-sm">
           Update
         </a>
       </div>
