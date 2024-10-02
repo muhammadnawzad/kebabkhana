@@ -1,5 +1,5 @@
 # Use the latest Crystal image
-FROM crystallang/crystal:1.0.0-arm-build
+FROM crystallang/crystal:latest
 
 # Set the working directory
 WORKDIR /app
@@ -48,7 +48,7 @@ RUN crystal build manage.cr -o bin/manage
 RUN crystal build src/server.cr -o bin/server --release
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/app/bin/docker-entrypoint"]
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Set the command to run your server
 CMD ["/app/bin/server"]
