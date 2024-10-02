@@ -1,5 +1,5 @@
 class HealthCheckHandler < Marten::Handler
     def get
-      json({ status: "ok" })
+      head(200)
     end
 end
