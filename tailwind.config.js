@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'selector',
   content: [
    "./src/**/*.html",
     "./node_modules/flowbite/**/*.js"
