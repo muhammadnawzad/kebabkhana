@@ -4,6 +4,7 @@ Marten.routes.draw do
   path "/management", Management::ROUTES, name: "management"
   path "/auth", Auth::ROUTES, name: "auth"
   path "/", HomeHandler, name: "home"
+  path "/up", HealthCheckHandler, name: "health_check"
   path "/kebab", Management::OrderLandingHandler, name: "landing"
 
   if Marten.env.development?
