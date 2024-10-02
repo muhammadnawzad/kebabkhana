@@ -1,6 +1,6 @@
 Marten.configure do |config|
   # IMPORTANT: please ensure that the secret key value is kept secret!
-  config.secret_key = ENV["SECRET_KEY_BASE"]
+  config.secret_key = ENV["SELF__SECRET_KEY_BASE"]
 
   # Installed applications
   # https://martenframework.com/docs/development/reference/settings#installed_apps

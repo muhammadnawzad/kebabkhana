@@ -24,6 +24,7 @@ logs
 spec
 assets/*
 .env
+.env.local
 
 # Others
 .icr_*
