@@ -22,8 +22,4 @@ primary_region = 'otp'
 [deploy]
   release_command = "bin/manage migrate"
 
-[[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
 
