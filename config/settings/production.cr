@@ -1,7 +1,5 @@
 Marten.configure :production do |config|
   # Application Settings
-  config.host = "0.0.0.0"
-  config.port = 3000
   config.allowed_hosts = ENV.fetch("SELF__ALLOWED_HOSTS", "").split(",")
   
   # Assets Settings
