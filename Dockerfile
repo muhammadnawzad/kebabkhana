@@ -48,4 +48,5 @@ RUN crystal build manage.cr -o bin/manage
 RUN crystal build src/server.cr -o bin/server --release
 
 # Set the command to run your server
+EXPOSE 3000
 CMD ["/app/bin/server"]
