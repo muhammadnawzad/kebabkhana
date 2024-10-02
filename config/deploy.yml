@@ -12,6 +12,10 @@ servers:
 proxy:
   ssl: true
   host: kebabkhana.online
+  healthcheck:
+    interval: 5
+    path: /up
+    timeout: 70
 
 registry:
   username:
