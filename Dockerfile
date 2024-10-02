@@ -1,5 +1,5 @@
 # Use the latest Crystal image
-FROM crystallang/crystal:latest-alpine
+FROM crystallang/crystal:1.0.0-arm-build
 
 # Set the working directory
 WORKDIR /app
