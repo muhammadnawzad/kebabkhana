@@ -1,0 +1,63 @@
+service: kebabkhana
+
+image: hamaschwany/kebabkhana
+
+ssh:
+  user: root
+
+servers:
+  web:
+    - 142.132.228.173
+
+proxy:
+  ssl: true
+  host: kebabkhana.online
+
+registry:
+  username:
+    - KAMAL__REGISTRY_USERNAME
+  password:
+    - KAMAL__REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+  secrets:
+    - DATABASE__HOST
+    - DATABASE__USERNAME
+    - DATABASE__PASSWORD
+    - DATABASE__NAME
+    - SELF__ALLOWED_HOSTS
+    - SELF__SECRET_KEY_BASE
+
+env:
+  secret:
+    - DATABASE__HOST
+    - DATABASE__USERNAME
+    - DATABASE__PASSWORD
+    - DATABASE__PORT
+    - DATABASE__NAME
+    - KAMAL__REGISTRY_PASSWORD
+    - KAMAL__REGISTRY_USERNAME
+    - POSTGRES_PASSWORD
+    - POSTGRES_USER
+    - POSTGRES_DB
+    - POSTGRES_HOST
+    - POSTGRES_DATABASE
+    - SELF__URL
+    - SELF__ALLOWED_HOSTS
+    - SELF__SECRET_KEY_BASE
+
+accessories:
+  postgres:
+    image: postgres:16
+    host: 142.132.228.173
+    port: 5432
+    env:
+      secret:
+        - POSTGRES_PASSWORD
+        - POSTGRES_USER
+        - POSTGRES_DB
+    files:
+      - config/init.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/postgresql/data
