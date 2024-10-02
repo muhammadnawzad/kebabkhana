@@ -13,10 +13,7 @@ proxy:
   ssl: true
   host: kebabkhana.online
   app_port: 3000
-  healthcheck:
-    interval: 5
-    path: /up
-    timeout: 70
+
 
 registry:
   username:
