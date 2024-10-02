@@ -34,4 +34,5 @@ Marten.configure :production do |config|
 
       db.options = {"sslmode" => "disable"}
     end
+  end
 end
