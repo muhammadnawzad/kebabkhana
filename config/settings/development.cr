@@ -1,5 +1,5 @@
 # Load environment variables from the .env file
-Dotenv.load ".env"
+Dotenv.load ".env" if Marten.env.development?
 
 Marten.configure :development do |config|
   config.debug = true
