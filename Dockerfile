@@ -47,5 +47,8 @@ RUN --mount=type=secret,id=DATABASE__HOST \
 RUN crystal build manage.cr -o bin/manage
 RUN crystal build src/server.cr -o bin/server --release
 
+# Entrypoint prepares the database.
+ENTRYPOINT ["/app/bin/docker-entrypoint"]
+
 # Set the command to run your server
 CMD ["/app/bin/server"]
