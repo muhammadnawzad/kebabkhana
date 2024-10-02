@@ -10,11 +10,17 @@ servers:
     hosts:
       - 142.132.228.173
 
+deploy_timeout: 60
+drain_timeout: 30
+readiness_delay: 30
+
 proxy:
   ssl: true
   host: kebabkhana.online
   app_port: 3000
-
+  healthcheck:
+    interval: 15
+    timeout: 15
 
 registry:
   username:
