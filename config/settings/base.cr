@@ -1,3 +1,5 @@
+Dotenv.load ".env" if File.exists?(".env")
+
 Marten.configure do |config|
   # IMPORTANT: please ensure that the secret key value is kept secret!
   config.secret_key = ENV["SELF__SECRET_KEY_BASE"]
