@@ -10,9 +10,6 @@ servers:
     hosts:
       - 142.132.228.173
 
-deploy_timeout: 80
-drain_timeout: 20
-
 proxy:
   ssl: true
   host: kebabkhana.online
