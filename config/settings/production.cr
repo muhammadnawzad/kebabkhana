@@ -11,6 +11,11 @@ Marten.configure :production do |config|
     Path["src/assets/built"].expand,
     Path["src/assets/images"].expand,
   ]
+
+  # Allow origins
+  config.csrf.trusted_origins = [
+    "https://kebabkhana.online"
+  ]
   
   # Middlewares Settings
   config.middleware.unshift(Marten::Middleware::AssetServing)
