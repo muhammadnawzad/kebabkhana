@@ -1,6 +1,3 @@
-# Load environment variables from the .env file
-Dotenv.load ".env"
-
 Marten.configure do |config|
   # IMPORTANT: please ensure that the secret key value is kept secret!
   config.secret_key = ENV["SECRET_KEY_BASE"]

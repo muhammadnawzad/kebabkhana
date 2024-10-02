@@ -1,3 +1,6 @@
+# Load environment variables from the .env file
+Dotenv.load ".env"
+
 Marten.configure :development do |config|
   config.debug = true
   config.host = "localhost"
