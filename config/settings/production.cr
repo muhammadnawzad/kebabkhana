@@ -2,7 +2,7 @@ Marten.configure :production do |config|
   # Application Settings
   config.host = "0.0.0.0"
   config.port = 3000
-  onfig.secret_key = ENV.fetch("MARTEN_SECRET_KEY", "")
+  config.secret_key = ENV.fetch("MARTEN_SECRET_KEY", "")
   config.allowed_hosts = ENV.fetch("MARTEN_ALLOWED_HOSTS", "").split(",")
   
   # Assets Settings
