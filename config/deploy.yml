@@ -12,7 +12,6 @@ servers:
 proxy:
   ssl: true
   host: kebabkhana.online
-  app_port: 3000
 
 registry:
   username:
@@ -21,7 +20,7 @@ registry:
     - KAMAL__REGISTRY_PASSWORD
 
 builder:
-  arch: arm64
+  arch: amd64
   secrets:
     - DATABASE__HOST
     - DATABASE__USERNAME
