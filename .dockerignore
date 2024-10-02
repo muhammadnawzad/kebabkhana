@@ -16,7 +16,6 @@ logs
 .DS_Store
 
 # Crystal build artifacts
-/bin/
 /lib/
 /.shards/
 
