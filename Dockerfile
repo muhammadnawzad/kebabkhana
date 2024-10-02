@@ -1,5 +1,5 @@
 # Use the latest Crystal image
-FROM crystallang/crystal:latest
+FROM crystallang/crystal:latest-alpine
 
 # Set the working directory
 WORKDIR /app
