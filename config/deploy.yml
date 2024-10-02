@@ -11,7 +11,8 @@ servers:
       - 142.132.228.173
 
 proxy:
-  ssl: false
+  ssl: true
+  host: kebabkhana.online
   app_port: 3000
 
 
