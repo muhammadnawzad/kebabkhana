@@ -11,7 +11,7 @@ Marten.configure :production do |config|
   
   # Middlewares Settings
   config.middleware.unshift(Marten::Middleware::AssetServing)
-  # config.middleware.unshift(Marten::Middleware::SSLRedirect)
+  config.middleware.unshift(Marten::Middleware::SSLRedirect)
 
   # Emailing Settings
   config.emailing.from_address = "noreply@kebabkhana.com"
