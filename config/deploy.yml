@@ -9,9 +9,9 @@ servers:
   web:
     hosts:
       - 142.132.228.173
-    options:
-      deploy_timeout: 80
-      drain_timeout: 20
+
+deploy_timeout: 80
+drain_timeout: 20
 
 proxy:
   ssl: true
