@@ -3,6 +3,7 @@ Marten.configure :production do |config|
   config.host = "localhost"
   config.port = 3000
   config.allowed_hosts = ENV.fetch("SELF__ALLOWED_HOSTS", "").split(",")
+  config.debug = true
   
   # Assets Settings
   config.assets.url = "/assets/"
