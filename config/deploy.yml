@@ -21,9 +21,7 @@ registry:
     - KAMAL__REGISTRY_PASSWORD
 
 builder:
-  arch:
-    - amd64
-    - arm64
+  arch: arm64
   secrets:
     - DATABASE__HOST
     - DATABASE__USERNAME
