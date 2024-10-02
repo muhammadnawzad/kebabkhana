@@ -33,6 +33,7 @@ builder:
   secrets:
     - SELF__ALLOWED_HOSTS
     - SELF__SECRET_KEY_BASE
+    - DATABASE__URL
 
 env:
   secret:

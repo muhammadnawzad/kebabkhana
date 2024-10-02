@@ -29,7 +29,13 @@ RUN pnpm run build
 RUN shards install
 
 # Collect assets (assumes you are using marten's collectassets command)
-RUN bin/marten collectassets --no-input
+RUN --mount=type=secret,id=DATABASE__URL \
+    --mount=type=secret,id=SELF__ALLOWED_HOSTS \
+    --mount=type=secret,id=SELF__SECRET_KEY_BASE \
+    DATABASE__URL=$(cat /run/secrets/DATABASE__URL) \
+    SELF__ALLOWED_HOSTS=$(cat /run/secrets/SELF__ALLOWED_HOSTS) \
+    SELF__SECRET_KEY_BASE=$(cat /run/secrets/SELF__SECRET_KEY_BASE) \
+    bin/marten collectassets --no-input
 
 # Compile the Crystal application
 RUN crystal build manage.cr -o bin/manage
