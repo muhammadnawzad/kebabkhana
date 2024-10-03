@@ -1,7 +1,6 @@
 module Management
   class OrderDeleteHandler < Marten::Handler
     include Auth::RequireSignedInUser
-    include Auth::RequireAdminUser
 
     @order : Order? = nil
 
