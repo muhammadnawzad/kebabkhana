@@ -1,93 +1,81 @@
 module Management
-  class OrderCreateHandler < Marten::Handler
+  class OrderCreateHandler < Marten::Handlers::RecordCreate
     property active_nav_item : String = "orders"
 
     include Auth::RequireSignedInUser
     include NavItemActivateable
+    include Flashable
 
-    def get
+    model Order
+    schema OrderCreateSchema
+    template_name "order/create.html"
+    success_route_name "management:list_orders"
+
+    before_dispatch :require_active_batch
+    before_render :update_context
+    before_schema_validation :set_defaults
+
+    private def require_active_batch
+      if Batch.active_batch.nil?
+        flash[:error] = "No active batch found, please make sure there is an active batch!"
+        redirect reverse("management:list_orders")
+      end
+    end
+
+    private def update_context
       active_batch = Batch.active
+      has_already_ordered = Order.filter(user_id: request.user!.id, batch_id: active_batch.first.not_nil!.id).count > 0
 
-      if active_batch.count != 1
-        flash[:error] = "Multiple active batches or no active batch found, please make sure there is only one active batch!"
-        redirect reverse("landing")
-      else
-        has_already_ordered = Order.filter(user_id: request.user!.id, batch_id: active_batch.first.not_nil!.id).count > 0
-        render("order/create.html", context: {items: Item.available, has_already_ordered: has_already_ordered})
-      end
+      context["items"] = Item.available
+      context["has_already_ordered"] = has_already_ordered
     end
 
-    def post
-      data = request.data
-
-      if validate_request_body(data)
-        process_valid_schema(data)
-      end
-
-      head
+    private def set_defaults
+      schema.validated_data["user_id"] = (request.user.not_nil!.id.not_nil!).to_i64
+      schema.validated_data["batch_id"] = Batch.active_batch.not_nil!.id.not_nil!.to_i64
+      schema.validated_data["status"] = "unpaid"
     end
 
-    def validate_request_body(data)
-      if data.fetch("items").nil?
-        flash[:error] = "No items found in the request"
-        return false
-      end
-
-      if data["total"].nil?
-        flash[:error] = "Total is missing in the request"
-        return false
-      end
-
-      active_batch = Batch.active
-
-      if active_batch.count != 1
-        flash[:error] = "Multiple active batches or no active batch found, please make sure there is only one active batch!"
-        return false
-      end
-
-      true
-    end
-
-    private def process_valid_schema(data)
-      active_batch = Batch.active.first.not_nil!
-      user_id = request.user!.id
-      order = nil
-      total = data["total"].not_nil!.to_s.to_i
-
+    def process_valid_schema
       Order.transaction do
-        order = Order.new(
-          user_id: user_id,
-          batch_id: active_batch.id,
-          total: total,
-          status: "unpaid",
+        order = Order.create!(
+          user_id: schema.validated_data["user_id"],
+          batch_id: schema.validated_data["batch_id"],
+          status: schema.validated_data["status"],
+          total: 0
         )
 
-        order.save!
-
-        items_array = data["items"].as(JSON::Any)
-        items_array.as_a.each do |item_data|
-          item_id = item_data["id"].not_nil!.to_s.to_i
-          quantity = item_data["quantity"].not_nil!.to_s.to_i
-          total = item_data["total"].not_nil!.to_s.to_i
-
-          next if quantity.zero?
-
-          if Item.get(id: item_id).nil?
-            flash[:error] = "Item with id #{item_id} not found"
-            raise Marten::DB::Errors::Rollback.new("Stop!")
-          else
-            OrderItem.create!(
-              order_id: order.id,
-              item_id: item_id,
-              quantity: quantity,
-              total: total,
-            )
-          end
+        if schema.validated_data["items"].nil?
+          flash[:error] = "No items found in the order"
+          raise Marten::DB::Errors::Rollback.new("No items found in the order")
+        else
+          create_order_items(order, schema.validated_data["items"].to_s)
+          order.reload
+          order.save # Trigger the callback to calculate the total
         end
       end
 
-      if order && order.order_items.count > 0
-        flash[:notice] = "Order created successfully!"
+      redirect reverse("management:list_orders")
+    end
+
+    private def create_order_items(order, items : String)
+      parsed_items = JSON.parse(items)
+
+      parsed_items.as_a.each do |parsed_item|
+        item_mapping = parsed_item.as_h
+        item_id = item_mapping.keys.first
+        quantity = item_mapping.values.first.as_i
+
+        next if quantity.zero?
+
+        item = Item.get!(id: item_id)
+
+        OrderItem.create!(
+          order_id: order.id,
+          item_id: item.id.not_nil!,
+          quantity: quantity,
+          total: quantity * item.price.not_nil!
+        )
       end
     end
   end

@@ -43,6 +43,16 @@ class Batch < Marten::Model
     items_count
   end
 
+  def self.active_batch : Batch?
+    if Batch.active.count == 1
+      Batch.active.first
+    elsif Batch.active.count > 1
+      raise "Multiple active batches found, please make sure there is only one active batch!"
+    else
+      nil
+    end
+  end
+
   def active? : Bool
     status == "active"
   end
