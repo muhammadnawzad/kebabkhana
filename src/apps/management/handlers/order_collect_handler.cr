@@ -3,6 +3,7 @@ module Management
     property active_nav_item : String = "orders"
 
     include Auth::RequireSignedInUser
+    include Auth::RequireAdminUser
     include NavItemActivateable
 
     before_render :categorize_records
