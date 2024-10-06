@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for order in records %}
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative {% if order.paid? %}border-l-4 border-green-200 dark:border-green-700{% else %}border-l-4 border-red-200 dark:border-red-700{% endif %}">
           {% if request.user.admin? %}
           <button data-modal-target="popup-modal-{{ order.id }}" data-modal-toggle="popup-modal-{{ order.id }}"
               class="absolute top-5 right-3 block text-red-600 hover:text-red-800 dark:text-red-700 dark:hover:text-red-500"
