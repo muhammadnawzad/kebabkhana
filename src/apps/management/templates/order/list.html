@@ -98,6 +98,8 @@
         </div>
       {% endfor %}
     </div>
+
+    {% include "/shared/pagination.html" with records=records, total_pages=total_pages %}
   </div>
 </section>
 
