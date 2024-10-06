@@ -22,6 +22,10 @@ module Management
       if Auth::User.filter(email__iexact: email).exclude(id: id).exists?
         errors.add(:email, "This email address is already taken")
       end
+
+      unless email!.split("@").last == "dit.gov.krd"
+        errors.add(:email, "Email must be issued by DIT")
+      end
     end
 
     private def validate_status

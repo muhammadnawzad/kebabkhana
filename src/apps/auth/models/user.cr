@@ -8,6 +8,13 @@ module Auth
     field :assigned_focal_point, :string, max_size: 128, default: "nursery"
     field :team, :string, max_size: 128, default: "dev"
 
+    validate :must_have_dit_issued_email
+
+
+    private def must_have_dit_issued_email
+      errors.add(:name, "must have a DIT issued email") unless email!.split("@").last == "dit.gov.krd"
+    end
+
     def full_name
       "#{first_name} #{last_name}"
     end
