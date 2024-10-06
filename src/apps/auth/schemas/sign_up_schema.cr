@@ -3,8 +3,8 @@ module Auth
     field :first_name, :string, max_size: 128, strip: true
     field :last_name, :string, max_size: 128, strip: true
     field :email, :email
-    field :password1, :string, max_size: 128, strip: false
-    field :password2, :string, max_size: 128, strip: false
+    field :password, :string, max_size: 128, strip: false
+    field :password_confirmation, :string, max_size: 128, strip: false
 
     validate :validate_email
     validate :validate_password
@@ -18,9 +18,9 @@ module Auth
     end
 
     private def validate_password
-      return unless password1? && password2?
+      return unless password? && password_confirmation?
 
-      if password1 != password2
+      if password != password_confirmation
         errors.add("The two password fields do not match")
       end
     end

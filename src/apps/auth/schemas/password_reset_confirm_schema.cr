@@ -1,14 +1,14 @@
 module Auth
   class PasswordResetConfirmSchema < Marten::Schema
-    field :password1, :string, max_size: 128, strip: false
-    field :password2, :string, max_size: 128, strip: false
+    field :password, :string, max_size: 128, strip: false
+    field :password_confirmation, :string, max_size: 128, strip: false
 
     validate :validate_password
 
     private def validate_password
-      return unless password1? && password2?
+      return unless password? && password_confirmation?
 
-      if password1 != password2
+      if password != password_confirmation
         errors.add("The two password fields do not match")
       end
     end

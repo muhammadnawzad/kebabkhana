@@ -11,7 +11,7 @@ describe Auth::SignUpHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 302
-      response.headers["Location"].should eq Marten.routes.reverse("auth:profile")
+      response.headers["Location"].should eq Marten.routes.reverse("landing")
     end
 
     it "renders the form as expected for anonymous users" do
@@ -26,7 +26,7 @@ describe Auth::SignUpHandler do
   describe "#post" do
     it "renders the form if the form data is invalid" do
       url = Marten.routes.reverse("auth:sign_up")
-      response = Marten::Spec.client.post(url, data: {"email": "", "password1": "", "password2": ""})
+      response = Marten::Spec.client.post(url, data: {"email": "", "password": "", "password_confirmation": ""})
 
       response.status.should eq 422
       response.content.includes?("Sign up").should be_true
@@ -36,7 +36,7 @@ describe Auth::SignUpHandler do
       url = Marten.routes.reverse("auth:sign_up")
       response = Marten::Spec.client.post(
         url,
-        data: {"email": "test@example.com", "password1": "insecure", "password2": "insecure"}
+        data: {"email": "test@example.com", "password": "insecure", "password_confirmation": "insecure", "first_name": "Test", "last_name": "User", "role": "client", "status": "active"}
       )
 
       response.status.should eq 302

@@ -11,7 +11,7 @@ describe Auth::SignInHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 302
-      response.headers["Location"].should eq Marten.routes.reverse("auth:profile")
+      response.headers["Location"].should eq Marten.routes.reverse("landing")
     end
 
     it "renders the form as expected for anonymous users" do

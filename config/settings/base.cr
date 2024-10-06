@@ -27,7 +27,7 @@ Marten.configure do |config|
   config.database do |db| # ameba:disable Naming/BlockParameterName
     db.backend = :postgresql
     db.host = "localhost"
-    db.name = "kebabkhana_development"
+    db.name = "kebabkhana_#{Marten.env}"
     db.user = "postgres"
     db.password = "postgres"
     db.port = 5432

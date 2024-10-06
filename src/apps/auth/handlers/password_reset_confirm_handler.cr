@@ -19,7 +19,7 @@ module Auth
     private def change_password
       session.delete(TOKEN_SESSION_KEY)
 
-      @user.not_nil!.set_password(schema.password1!) # ameba:disable Lint/NotNil
+      @user.not_nil!.set_password(schema.password!) # ameba:disable Lint/NotNil
       @user.not_nil!.save!                           # ameba:disable Lint/NotNil
 
       flash[:notice] = "Password updated successfully."

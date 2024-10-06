@@ -11,7 +11,7 @@ describe Auth::PasswordResetInitiateHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 302
-      response.headers["Location"].should eq Marten.routes.reverse("auth:profile")
+      response.headers["Location"].should eq Marten.routes.reverse("landing")
     end
 
     it "renders the form as expected for anonymous users" do
@@ -19,7 +19,7 @@ describe Auth::PasswordResetInitiateHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 200
-      response.content.includes?("Reset password").should be_true
+      response.content.includes?("Reset your password").should be_true
     end
   end
 
@@ -29,7 +29,7 @@ describe Auth::PasswordResetInitiateHandler do
       response = Marten::Spec.client.post(url, data: {"email": ""})
 
       response.status.should eq 422
-      response.content.includes?("Reset password").should be_true
+      response.content.includes?("Reset your password").should be_true
     end
 
     it "sends a password reset email and redirects to the sign in page if the form data is valid" do

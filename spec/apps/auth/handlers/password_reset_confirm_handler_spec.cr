@@ -19,7 +19,7 @@ describe Auth::PasswordResetConfirmHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 302
-      response.headers["Location"].should eq Marten.routes.reverse("auth:profile")
+      response.headers["Location"].should eq Marten.routes.reverse("landing")
     end
 
     it "redirects to the sign in page if the specified token is invalid" do
@@ -59,7 +59,7 @@ describe Auth::PasswordResetConfirmHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 200
-      response.content.includes?("Reset password").should be_true
+      response.content.includes?("Reset your password").should be_true
     end
   end
 
@@ -71,7 +71,7 @@ describe Auth::PasswordResetConfirmHandler do
       Marten::Spec.client.session["_password_reset_token"] = MartenAuth.generate_password_reset_token(user)
 
       url = Marten.routes.reverse("auth:password_reset_confirm", uid: uid, token: "set-password")
-      response = Marten::Spec.client.post(url, data: {"password1" => "newpassword", "password2" => "newpassword"})
+      response = Marten::Spec.client.post(url, data: {"password" => "newpassword", "password_confirmation" => "newpassword"})
 
       response.status.should eq 302
       response.headers["Location"].should eq Marten.routes.reverse("auth:sign_in")

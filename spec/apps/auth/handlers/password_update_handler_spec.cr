@@ -20,7 +20,7 @@ describe Auth::PasswordUpdateHandler do
       response = Marten::Spec.client.get(url)
 
       response.status.should eq 200
-      response.content.includes?("Update password").should be_true
+      response.content.includes?("Update your password").should be_true
     end
   end
 
@@ -73,7 +73,7 @@ describe Auth::PasswordUpdateHandler do
       })
 
       response.status.should eq 422
-      response.content.includes?("Update password").should be_true
+      response.content.includes?("Update your password").should be_true
     end
   end
 end

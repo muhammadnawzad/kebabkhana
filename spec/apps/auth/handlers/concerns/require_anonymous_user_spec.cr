@@ -13,7 +13,7 @@ describe Auth::RequireAnonymousUser do
       response = handler.process_dispatch
 
       response.status.should eq 302
-      response.headers["Location"].should eq Marten.routes.reverse("auth:profile")
+      response.headers["Location"].should eq Marten.routes.reverse("landing")
     end
 
     it "does not redirect if the user is anonymous" do
