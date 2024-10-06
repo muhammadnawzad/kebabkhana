@@ -68,6 +68,24 @@
             {% endfor %}
           </div>
 
+          <div>
+            <label for="{{ schema.team.id }}"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team</label>
+            <select id="{{ schema.team.id }}" name="{{ schema.team.id }}"
+                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required>
+                <option value="">Select a team</option>
+                <option value="dev" {% if schema.team.value == 'dev' %}selected{% endif %}>Dev</option>
+                <option value="qa" {% if schema.team.value == 'qa' %}selected{% endif %}>QA</option>
+                <option value="devops" {% if schema.team.value == 'devops' %}selected{% endif %}>DevOps</option>
+                <option value="bira" {% if schema.team.value == 'bira' %}selected{% endif %}>BIRA</option>
+                <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other</option>
+            </select>
+            {% for error in schema.team.errors %}
+            <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+            {% endfor %}
+        </div>
+
           <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
             Sign up
           </button>

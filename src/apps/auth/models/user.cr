@@ -5,6 +5,8 @@ module Auth
     field :balance, :int, null: false
     field :role, :string, max_size: 128, default: "client"
     field :status, :string, max_size: 128, default: "active"
+    field :assigned_focal_point, :string, max_size: 128, default: "nursery"
+    field :team, :string, max_size: 128, default: "dev"
 
     def full_name
       "#{first_name} #{last_name}"
@@ -50,6 +52,80 @@ module Auth
 
     def self.statuses : Array(String)
       ["active", "inactive"]
+    end
+
+    # Team methods
+    def dev? : Bool
+      team == "dev"
+    end
+
+    def qa? : Bool
+      team == "qa"
+    end
+
+    def devops? : Bool
+      team == "devops"
+    end
+
+    def bira? : Bool
+      team == "bira"
+    end
+
+    def other? : Bool
+      team == "other"
+    end
+
+    def self.dev : Auth::User::QuerySet
+      User.filter(team: "dev")
+    end
+
+    def self.qa : Auth::User::QuerySet
+      User.filter(team: "qa")
+    end
+
+    def self.devops : Auth::User::QuerySet
+      User.filter(team: "devops")
+    end
+
+    def self.bira : Auth::User::QuerySet
+      User.filter(team: "bira")
+    end
+
+    def self.other : Auth::User::QuerySet
+      User.filter(team: "other")
+    end
+
+    def self.teams : Array(String)
+      ["dev", "qa", "devops", "bira", "other"]
+    end
+
+    # Focal Point methods
+    def nursery? : Bool
+      assigned_focal_point == "nursery"
+    end
+
+    def spaceship? : Bool
+      assigned_focal_point == "spaceship"
+    end
+
+    def bira_room? : Bool
+      assigned_focal_point == "bira_room"
+    end
+
+    def self.nursery : Auth::User::QuerySet
+      User.filter(assigned_focal_point: "nursery")
+    end
+
+    def self.spaceship : Auth::User::QuerySet
+      User.filter(assigned_focal_point: "spaceship")
+    end
+
+    def self.bira_room : Auth::User::QuerySet
+      User.filter(assigned_focal_point: "bira_room")
+    end
+
+    def self.assigned_focal_points : Array(String)
+      ["nursery", "spaceship", "bira_room"]
     end
   end
 end

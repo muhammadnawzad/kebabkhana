@@ -5,6 +5,8 @@ class Migration::Auth::V0001 < Marten::Migration
       column :email, :string, max_size: 254, unique: true
       column :role, :string, max_size: 128, default: "client"
       column :status, :string, max_size: 128, default: "active"
+      column :assigned_focal_point, :string, max_size: 128, default: "nursery"
+      column :team, :string, max_size: 128, default: "dev"
       column :balance, :int, null: false
       column :first_name, :string, max_size: 128
       column :last_name, :string, max_size: 128

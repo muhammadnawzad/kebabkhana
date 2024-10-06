@@ -65,6 +65,40 @@
     </div>
 
     <div>
+      <label for="{{ schema.team.id }}"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Team</label>
+      <select id="{{ schema.team.id }}" name="{{ schema.team.id }}"
+          class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required>
+          <option value="">Select a team</option>
+          <option value="dev" {% if schema.team.value == 'dev' %}selected{% endif %}>Dev</option>
+          <option value="qa" {% if schema.team.value == 'qa' %}selected{% endif %}>QA</option>
+          <option value="devops" {% if schema.team.value == 'devops' %}selected{% endif %}>DevOps</option>
+          <option value="bira" {% if schema.team.value == 'bira' %}selected{% endif %}>BIRA</option>
+          <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other</option>
+      </select>
+      {% for error in schema.team.errors %}
+      <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <label for="{{ schema.assigned_focal_point.id }}"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Assigned Focal Point</label>
+      <select id="{{ schema.assigned_focal_point.id }}" name="{{ schema.assigned_focal_point.id }}"
+          class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required>
+          <option value="">Select an assigned focal point</option>
+          <option value="nursery" {% if schema.assigned_focal_point.value == 'nursery' %}selected{% endif %}>Nursery</option>
+          <option value="spaceship" {% if schema.assigned_focal_point.value == 'spaceship' %}selected{% endif %}>Spaceship</option>
+          <option value="bira_room" {% if schema.assigned_focal_point.value == 'bira_room' %}selected{% endif %}>BIRA Room</option>
+      </select>
+      {% for error in schema.assigned_focal_point.errors %}
+      <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
+      {% endfor %}
+    </div>
+
+    <div>
         <label for="{{ schema.status.id }}"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
         <select id="{{ schema.status.id }}" name="{{ schema.status.id }}"
