@@ -9,7 +9,7 @@ module Management
 
     model Order
     schema OrderUpdateSchema
-    template_name "order/list.html"
-    success_route_name "management:list_orders"
+    template_name "order/collect.html"
+    success_route_name "management:collect_order"
   end
 end

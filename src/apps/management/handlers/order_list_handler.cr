@@ -9,7 +9,7 @@ module Management
 
     template_name "order/list.html"
     model Order
-    page_size 6
+    page_size 9
     ordering "-created_at"
 
     def queryset

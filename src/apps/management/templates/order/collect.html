@@ -1,0 +1,104 @@
+{% extend "auth.html" %}
+
+{% block content %}
+<section class="bg-gray-50 dark:bg-gray-900">
+  <div class="max-w-screen-lg mx-auto py-8 px-6">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Collect Order Payment</h1>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">
+        You can collect payment based on the user's assigned focal point.
+      </p>
+    </div>
+
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+      <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+        {% for category, orders in categorized_records %}
+          <li class="me-2" role="presentation">
+            <button class="inline-block px-4 py-1 border-b-2 border-transparent hover:border-primary-600 text-primary-600 hover:text-primary-800 rounded-t-lg" id="tab-{{ category }}" data-tabs-target="#{{ category }}" type="button" role="tab" aria-controls="{{ category }}" aria-selected="{% if request.user.assigned_focal_point == category %}true{% else %}false{% endif %}">
+              {{ category|humanize }}             
+              <span class="text-xs text-gray-700 dark:text-gray-500 mb-2 py-2">
+                {% for category_total in totals %}
+                    {% if category_total.first == category %}
+                    &lpar;{{ category_total.last }} IQD&rpar;
+                    {% endif %}
+                {% endfor %}
+              </span>
+            </button>
+
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div id="default-tab-content">
+      {% for category, orders in categorized_records %}
+      <div class="hidden p-4 rounded-lg bg-white dark:bg-gray-900" id="{{ category }}" role="tabpanel" aria-labelledby="tab-{{ category }}">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for order in orders %}
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg max-w-md relative {% if order.paid? %}border-l-4 border-green-200 dark:border-green-700{% else %}border-l-4 border-red-200 dark:border-red-700{% endif %}">
+                {% if request.user.admin? %}
+                <form class="absolute top-5 right-5" method="post" action="{% url 'management:update_order' pk: order.id %}" enctype="multipart/form-data" novalidate>
+                  <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
+                  <input type="hidden" name="name" value="{{ order.name }}">
+                  <input type="hidden" name="status" value="{% if order.paid? %}unpaid{% else %}paid{% endif %}">
+                  <button type="submit">
+                    {% if order.paid? %}
+                    <svg class="w-6 h-6 text-red-800 dark:text-red-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                        d="M8 7V6a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1M3 18v-7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                    </svg>
+                    {% else %}
+                    <svg class="w-6 h-6 text-green-800 dark:text-green-400" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z"
+                        clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M2 11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7Zm7.5 1a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"
+                        clip-rule="evenodd" />
+                      <path d="M10.5 14.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
+                    </svg>
+                    {% endif %}
+                  </button>
+                </form>
+                {% endif %}
+
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 truncate w-2/3">
+                  {{ order.user.full_name }}
+                </h2>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                  {% if order.paid? %}
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Paid</span>
+                  {% else %}
+                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Unpaid</span>
+                  {% endif %}
+                  <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
+                    {{ order.batch.name }}
+                  </span>
+                </p>
+                {% if order.order_items.size > 0 %}
+                  <div class="mb-3">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 font-bold mb-1">
+                      Items:
+                    </p>
+                    <ul class="text-gray-500 list-disc list-inside truncate text-sm">
+                      {% for order_item in order.order_items %}
+                        <li>{{ order_item.item.name }} (x{{ order_item.quantity }})</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+                <p class="text-sm font-bold">
+                  <span class="bg-gray-100 text-gray-800 text-xs font-medium px-1.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">
+                    {{ order.total }} IQD
+                  </span>
+                </p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

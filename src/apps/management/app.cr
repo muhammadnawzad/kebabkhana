@@ -1,3 +1,4 @@
+require "./filters/**"
 require "./handlers/**"
 require "./models/**"
 require "./routes"

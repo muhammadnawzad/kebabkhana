@@ -4,6 +4,7 @@ module Management
     path "/orders/new", OrderCreateHandler, name: "create_order"
     path "/orders/edit/<pk:int>", OrderUpdateHandler, name: "update_order"
     path "/orders/delete/<pk:int>", OrderDeleteHandler, name: "delete_order"
+    path "/orders/collect-order", OrderCollectHandler, name: "collect_order"
     
     path "/batches/new", BatchCreateHandler, name: "create_batch"
     path "/batches", BatchListHandler, name: "list_batches"
