@@ -66,6 +66,10 @@ class Order < Marten::Model
     items_available || [] of Item
   end
 
+  def paid? : Bool
+    status == "paid"
+  end
+
   # Class methods
   def self.statuses : Array(String)
     ["paid", "unpaid"]
