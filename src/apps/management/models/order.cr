@@ -6,10 +6,42 @@ class Order < Marten::Model
   field :batch, :many_to_one, to: Batch, related: :orders
   with_timestamp_fields
 
+  # Validations
+  validate :user_must_exist
+  validate :batch_must_exist
+  validate :status_should_be_valid
+  validate :total_should_be_correct
+
   # Callbacks
   before_save :calculate_total
 
-  def calculate_total
+  # Private instance methods
+  private def user_must_exist : Nil
+    if user.nil?
+      errors.add(:user, "User must exist")
+    end
+  end
+
+  private def batch_must_exist : Nil
+    if batch.nil?
+      errors.add(:batch, "Batch must exist")
+    end
+  end
+
+  private def status_should_be_valid : Nil
+    unless Order.statuses.includes?(status)
+      errors.add(:status, "Invalid status")
+    end
+  end
+
+  private def total_should_be_correct : Nil
+    if total.nil? || total! < 0
+      errors.add(:total, "Total should be greater or equal to 0")
+    end
+  end
+
+  # Public instance methods
+  def calculate_total : Nil
     subtotal = 0
 
     if order_items.count.zero?
@@ -24,7 +56,6 @@ class Order < Marten::Model
     self.total = subtotal
   end
 
-  # Associations
   def items : Array(Item)
     items_available = [] of Item
 
@@ -35,23 +66,7 @@ class Order < Marten::Model
     items_available || [] of Item
   end
 
-  # Status methods
-  def paid? : Bool
-    status == "paid"
-  end
-
-  def unpaid? : Bool
-    status == "unpaid"
-  end
-
-  def self.paid : Order::QuerySet
-    Order.filter(status: "paid")
-  end
-
-  def self.unpaid : Order::QuerySet
-    Order.filter(status: "unpaid")
-  end
-
+  # Class methods
   def self.statuses : Array(String)
     ["paid", "unpaid"]
   end

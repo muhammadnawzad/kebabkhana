@@ -8,18 +8,47 @@ module Auth
     field :assigned_focal_point, :string, max_size: 128, default: "nursery"
     field :team, :string, max_size: 128, default: "dev"
 
+    # Validations
     validate :must_have_dit_issued_email
+    validate :role_must_be_valid
+    validate :status_must_be_valid
+    validate :team_must_be_valid
+    validate :assigned_focal_point_must_be_valid
 
-
-    private def must_have_dit_issued_email
+    # Private instance methods
+    private def must_have_dit_issued_email : Nil
       errors.add(:name, "must have a DIT issued email") unless email!.split("@").last == "dit.gov.krd"
     end
 
-    def full_name
+    private def role_must_be_valid : Nil
+      unless User.roles.includes?(role)
+        errors.add(:role, "Invalid role")
+      end
+    end
+
+    private def status_must_be_valid : Nil
+      unless User.statuses.includes?(status)
+        errors.add(:status, "Invalid status")
+      end
+    end
+
+    private def team_must_be_valid : Nil
+      unless User.teams.includes?(team)
+        errors.add(:team, "Invalid team")
+      end
+    end
+
+    private def assigned_focal_point_must_be_valid : Nil
+      unless User.assigned_focal_points.includes?(assigned_focal_point)
+        errors.add(:assigned_focal_point, "Invalid assigned focal point")
+      end
+    end
+
+    # Public instance methods
+    def full_name : String
       "#{first_name} #{last_name}"
     end
 
-    # Role methods
     def admin? : Bool
       role == "admin"
     end
@@ -27,20 +56,7 @@ module Auth
     def client? : Bool
       role == "client"
     end
-  
-    def self.admin : Auth::User::QuerySet
-      User.filter(role: "admin")
-    end
-  
-    def self.client : Auth::User::QuerySet
-      User.filter(role: "client")
-    end
-  
-    def self.roles : Array(String)
-      ["admin", "client"]
-    end
 
-    # Status methods
     def active? : Bool
       status == "active"
     end
@@ -49,86 +65,17 @@ module Auth
       status == "inactive"
     end
 
-    def self.active : Auth::User::QuerySet
-      User.filter(status: "active")
-    end
-
-    def self.inactive : Auth::User::QuerySet
-      User.filter(status: "inactive")
+    # Class methods
+    def self.roles : Array(String)
+      ["admin", "client"]
     end
 
     def self.statuses : Array(String)
       ["active", "inactive"]
     end
 
-    # Team methods
-    def dev? : Bool
-      team == "dev"
-    end
-
-    def qa? : Bool
-      team == "qa"
-    end
-
-    def devops? : Bool
-      team == "devops"
-    end
-
-    def bira? : Bool
-      team == "bira"
-    end
-
-    def other? : Bool
-      team == "other"
-    end
-
-    def self.dev : Auth::User::QuerySet
-      User.filter(team: "dev")
-    end
-
-    def self.qa : Auth::User::QuerySet
-      User.filter(team: "qa")
-    end
-
-    def self.devops : Auth::User::QuerySet
-      User.filter(team: "devops")
-    end
-
-    def self.bira : Auth::User::QuerySet
-      User.filter(team: "bira")
-    end
-
-    def self.other : Auth::User::QuerySet
-      User.filter(team: "other")
-    end
-
     def self.teams : Array(String)
       ["dev", "qa", "devops", "bira", "other"]
-    end
-
-    # Focal Point methods
-    def nursery? : Bool
-      assigned_focal_point == "nursery"
-    end
-
-    def spaceship? : Bool
-      assigned_focal_point == "spaceship"
-    end
-
-    def bira_room? : Bool
-      assigned_focal_point == "bira_room"
-    end
-
-    def self.nursery : Auth::User::QuerySet
-      User.filter(assigned_focal_point: "nursery")
-    end
-
-    def self.spaceship : Auth::User::QuerySet
-      User.filter(assigned_focal_point: "spaceship")
-    end
-
-    def self.bira_room : Auth::User::QuerySet
-      User.filter(assigned_focal_point: "bira_room")
     end
 
     def self.assigned_focal_points : Array(String)

@@ -4,6 +4,31 @@ class Batch < Marten::Model
   field :status, :string, max_size: 255, default: "active", null: false, index: true
   with_timestamp_fields
 
+  # Validations
+  validate :name_should_be_unique
+  validate :status_should_be_valid
+  validate :only_one_active_batch_allowed
+
+  # Private instance methods
+  private def name_should_be_unique : Nil
+    if Batch.filter(name__iexact: name).exclude(id: id).exists?
+      errors.add(:name, "This name is already taken")
+    end
+  end
+
+  private def status_should_be_valid : Nil
+    unless Batch.statuses.includes?(status)
+      errors.add(:status, "Invalid status")
+    end
+  end
+
+  private def only_one_active_batch_allowed : Nil
+    if active? && Batch.active.count > 1
+      errors.add(:status, "Only one active batch is allowed")
+    end
+  end
+
+  # Public instance methods
   def order_count : Float64 | Int32
     count = orders.count
     # Ensure the count is cast to the correct type
@@ -43,6 +68,11 @@ class Batch < Marten::Model
     items_count
   end
 
+  def active? : Bool
+    status == "active"
+  end
+
+  # Class methods
   def self.active_batch : Batch?
     if Batch.active.count == 1
       Batch.active.first
@@ -53,20 +83,8 @@ class Batch < Marten::Model
     end
   end
 
-  def active? : Bool
-    status == "active"
-  end
-
-  def locked? : Bool
-    status == "locked"
-  end
-
   def self.active : Batch::QuerySet
     Batch.filter(status: "active")
-  end
-
-  def self.locked : Batch::QuerySet
-    Batch.filter(status: "locked")
   end
 
   def self.statuses : Array(String)
