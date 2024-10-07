@@ -8,9 +8,6 @@ module Management
 
     template_name "item/list.html"
     model Item
-
-    def queryset
-      super.order("-created_at")
-    end
+    ordering "-created_at"
   end
 end
