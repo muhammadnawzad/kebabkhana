@@ -4,7 +4,7 @@ Kebabkhana is a simple web application that allows users to order kebabs online.
 
 ## Background
 
-Kebab day is a tradition at the office where I work. Every Thursday, we order kebabs from a local kebab shop. The process of ordering kebabs is a bit cumbersome. We have to write down our orders on a slack channel and then someone has to manually organize these orders and call the kebab shop to place the order. I thought it would be nice to have a web application that would allow us to order kebabs online. That's how Kebabkhana was born. The application is built around the idea of making it easy for us to order kebab, many of the features are tailored to our specific needs and are not necessarily generalizable to other use cases.
+Kebab day is a tradition at the office where I work. Every Thursday, we order kebab from a local kebab shop. The process of ordering kebab is a bit cumbersome. We have to write down our orders on a slack channel and then someone has to manually organize these orders and call the kebab shop to place the order. I thought it would be nice to have a web application that would allow us to order kebab online. That's how Kebabkhana was born. The application is built around the idea of making it easy for us to order kebab, many of the features are tailored to our specific needs and are not necessarily generalizable to other use cases.
 
 ## Technologies
 
@@ -32,7 +32,7 @@ Kebabkhana has 2 applications:
    - User password change
    - User management (admin only)
 
-2. **Kebabkhana**: This application is the main application that allows users to order kebabs online. It provides the following features:
+2. **Kebabkhana**: This application is the main application that allows users to order kebab online. It provides the following features:
     - Item management (create, read, update, delete).
     - Batch management (create, read, update, delete) - A batch is a collection of orders for a specific day (usually every Thursdays).
     - Order management (create, read, update, delete).
@@ -42,11 +42,12 @@ Kebabkhana has 2 applications:
 
 To install Kebabkhana, follow these steps:
 
-1. Clone the repository and navigate to the project directory.
-2. Install the required dependencies by running `shards install`.
-3. Start the PostgreSQL database by running `docker-compose up -d`. (make sure to create a `.env` file with the required environment variables, and a development database).
-4. Run the database migrations by running `marten migrate`.
-5. Start the application by running `marten serve`.
+1. Intsall the Crystal Language & Marten Framework by following the instructions on the respective websites.
+2. Clone the repository and navigate to the project directory.
+3. Install the required dependencies by running `shards install`.
+4. Start the PostgreSQL database by running `docker-compose up -d`. (make sure to create a `.env` file with the required environment variables, and a development database).
+5. Run the database migrations by running `marten migrate`.
+6. Start the application by running `marten serve`.
 
 ## Deployment
 
