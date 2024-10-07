@@ -10,7 +10,9 @@ describe Auth::SignUpSchema do
           "role" => ["client"],
           "status" => ["active"],
           "balance" => ["0"],
-          "email"     => ["test@example.com"],
+          "team" => ["dev"],
+          "assigned_focal_point" => ["spaceship"],
+          "email"     => ["test@dit.gov.krd"],
           "password" => ["insecure"],
           "password_confirmation" => ["insecure"],
         }
@@ -21,7 +23,7 @@ describe Auth::SignUpSchema do
 
     it "returns false if the data is not provided" do
       schema = Auth::SignUpSchema.new(
-        Marten::HTTP::Params::Data{"email" => [""], "password" => [""], "password_confirmation" => [""], "first_name" => [""], "last_name" => [""]}
+        Marten::HTTP::Params::Data{"email" => [""], "password" => [""], "password_confirmation" => [""], "first_name" => [""], "last_name" => [""], "balance" => ["0"], "team" => ["dev"], "assigned_focal_point" => ["spaceship"]}
       )
 
       schema.valid?.should be_false
@@ -40,15 +42,18 @@ describe Auth::SignUpSchema do
     end
 
     it "returns false if the email address is already taken" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       schema = Auth::SignUpSchema.new(
         Marten::HTTP::Params::Data{
           "first_name" => ["Test"],
           "last_name" => ["User"],
-          "email"     => ["test@example.com"],
+          "email"     => ["test@dit.gov.krd"],
           "password" => ["insecure"],
           "password_confirmation" => ["insecure"],
+          "role" => ["client"],
+          "team" => ["dev"],
+          "assigned_focal_point" => ["spaceship"],
         }
       )
 
@@ -60,15 +65,18 @@ describe Auth::SignUpSchema do
     end
 
     it "returns false if the email address is already taken in a case insensitive way" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       schema = Auth::SignUpSchema.new(
         Marten::HTTP::Params::Data{
           "first_name" => ["Test"],
           "last_name" => ["User"],
-          "email"     => ["TesT@ExamPLE.com"],
+          "email"     => ["TesT@dit.gov.krd"],
           "password" => ["insecure"],
           "password_confirmation" => ["insecure"],
+          "role" => ["client"],
+          "team" => ["dev"],
+          "assigned_focal_point" => ["spaceship"],
         }
       )
 
@@ -84,7 +92,10 @@ describe Auth::SignUpSchema do
         Marten::HTTP::Params::Data{
           "first_name" => ["Test"],
           "last_name" => ["User"],
-          "email"     => ["test@example.com"],
+          "email"     => ["test@dit.gov.krd"],
+          "role" => ["client"],
+          "team" => ["dev"],
+          "assigned_focal_point" => ["spaceship"],
           "password" => ["insecure"],
           "password_confirmation" => ["other"],
         }

@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::SignUpHandler do
   describe "#get" do
     it "redirects to the profile page if the user is already authenticated" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_up")
 
@@ -36,7 +36,18 @@ describe Auth::SignUpHandler do
       url = Marten.routes.reverse("auth:sign_up")
       response = Marten::Spec.client.post(
         url,
-        data: {"email": "test@example.com", "password": "insecure", "password_confirmation": "insecure", "first_name": "Test", "last_name": "User", "role": "client", "status": "active"}
+        data: {
+          "email":                 "test@dit.gov.krd",
+          "password":              "insecure",
+          "password_confirmation": "insecure",
+          "first_name":            "Test",
+          "last_name":             "User",
+          "role":                  "client",
+          "status":                "active",
+          "balance":               0,
+          "team":                  "dev",
+          "assigned_focal_point":  "spaceship",
+        }
       )
 
       response.status.should eq 302

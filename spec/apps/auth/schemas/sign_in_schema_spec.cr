@@ -3,10 +3,10 @@ require "./spec_helper"
 describe Auth::SignInSchema do
   describe "#valid?" do
     it "returns true if the email and password are provided and the authentication is successful" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       schema = Auth::SignInSchema.new(
-        Marten::HTTP::Params::Data{"email" => ["test@example.com"], "password" => ["insecure"]}
+        Marten::HTTP::Params::Data{"email" => ["test@dit.gov.krd"], "password" => ["insecure"]}
       )
       schema.valid?.should be_true
       schema.errors.should be_empty
@@ -27,10 +27,10 @@ describe Auth::SignInSchema do
     end
 
     it "returns false if the email matches an existing user but the password is invalid" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       schema = Auth::SignInSchema.new(
-        Marten::HTTP::Params::Data{"email" => ["test@example.com"], "password" => ["bad"]}
+        Marten::HTTP::Params::Data{"email" => ["test@dit.gov.krd"], "password" => ["bad"]}
       )
 
       schema.valid?.should be_false

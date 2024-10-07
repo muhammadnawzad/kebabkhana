@@ -4,7 +4,7 @@ describe Auth::PasswordResetInitiateSchema do
   describe "#valid?" do
     it "returns true if the email address is provided" do
       schema = Auth::PasswordResetInitiateSchema.new(
-        Marten::HTTP::Params::Data{"email" => ["test@example.com"]}
+        Marten::HTTP::Params::Data{"email" => ["test@dit.gov.krd"]}
       )
       schema.valid?.should be_true
       schema.errors.should be_empty

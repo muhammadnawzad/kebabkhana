@@ -11,7 +11,7 @@ describe Auth::PasswordResetConfirmHandler do
     end
 
     it "redirects to the profile page if the user is already authenticated" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_reset_confirm", uid: Base64.urlsafe_encode(user.pk.to_s), token: "tkn")
 
@@ -23,7 +23,7 @@ describe Auth::PasswordResetConfirmHandler do
     end
 
     it "redirects to the sign in page if the specified token is invalid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_reset_confirm", uid: Base64.urlsafe_encode(user.pk.to_s), token: "bad")
 
@@ -34,7 +34,7 @@ describe Auth::PasswordResetConfirmHandler do
     end
 
     it "redirects to the same page and hides the token in the session if the user ID and token are valid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
       uid = Base64.urlsafe_encode(user.pk.to_s)
       password_reset_token = MartenAuth.generate_password_reset_token(user)
 
@@ -50,7 +50,7 @@ describe Auth::PasswordResetConfirmHandler do
     end
 
     it "shows the password reset form if the token was previously set in the session for a GET request" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
       uid = Base64.urlsafe_encode(user.pk.to_s)
 
       Marten::Spec.client.session["_password_reset_token"] = MartenAuth.generate_password_reset_token(user)
@@ -65,7 +65,7 @@ describe Auth::PasswordResetConfirmHandler do
 
   describe "#post" do
     it "resets the password and redirects to the sign in page if the token is in the session for a POST request" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
       uid = Base64.urlsafe_encode(user.pk.to_s)
 
       Marten::Spec.client.session["_password_reset_token"] = MartenAuth.generate_password_reset_token(user)

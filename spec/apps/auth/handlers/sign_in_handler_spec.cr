@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::SignInHandler do
   describe "#get" do
     it "redirects to the profile page if the user is already authenticated" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_in")
 
@@ -34,7 +34,7 @@ describe Auth::SignInHandler do
     end
 
     it "renders the form if the specified credentials are invalid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_in")
       response = Marten::Spec.client.post(url, data: {"email": user.email, "password": "bad"})
@@ -48,7 +48,7 @@ describe Auth::SignInHandler do
     end
 
     it "renders the form if the specified email does not match an existing user" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_in")
       response = Marten::Spec.client.post(url, data: {"email": user.email, "password": "bad"})
@@ -62,7 +62,7 @@ describe Auth::SignInHandler do
     end
 
     it "authenticates the user as expected if the credentials are valid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_in")
       response = Marten::Spec.client.post(url, data: {"email": user.email, "password": "insecure"})

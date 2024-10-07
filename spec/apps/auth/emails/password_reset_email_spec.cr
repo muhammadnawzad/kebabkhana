@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::PasswordResetEmail do
   describe "#html_body" do
     it "can be rendered" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       request = Marten::HTTP::Request.new(
         method: "GET",
@@ -19,7 +19,7 @@ describe Auth::PasswordResetEmail do
 
   describe "#subject" do
     it "returns the expected subject" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
       request = Marten::HTTP::Request.new(method: "GET", resource: "/test/xyz")
 
       email = Auth::PasswordResetEmail.new(user, request)
@@ -30,7 +30,7 @@ describe Auth::PasswordResetEmail do
 
   describe "#to" do
     it "returns the user email address" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
       request = Marten::HTTP::Request.new(method: "GET", resource: "/test/xyz")
 
       email = Auth::PasswordResetEmail.new(user, request)

@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::PasswordUpdateSchema do
   describe "#valid?" do
     it "returns true if old password is correct and the new password and its confirmation are equal" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(
@@ -21,7 +21,7 @@ describe Auth::PasswordUpdateSchema do
     end
 
     it "returns false if old password is not correct and the new password and its confirmation are equal" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(
@@ -39,7 +39,7 @@ describe Auth::PasswordUpdateSchema do
     end
 
     it "returns false if old password is correct but the new password and its confirmation are not equal" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(
@@ -58,7 +58,7 @@ describe Auth::PasswordUpdateSchema do
     end
 
     it "returns false if no new confirmation password was given" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(
@@ -76,7 +76,7 @@ describe Auth::PasswordUpdateSchema do
     end
 
     it "returns false if no new password was given" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(
@@ -94,7 +94,7 @@ describe Auth::PasswordUpdateSchema do
     end
 
     it "returns false if no old password was given" do
-      email = "test@example.com"
+      email = "test@dit.gov.krd"
       user = create_user(email: email, password: "insecure")
 
       schema = Auth::PasswordUpdateSchema.new(

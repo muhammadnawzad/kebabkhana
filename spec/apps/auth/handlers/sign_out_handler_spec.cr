@@ -12,7 +12,7 @@ describe Auth::SignOutHandler do
     end
 
     it "signs out any authenticated user as expected" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_out")
 
@@ -27,7 +27,7 @@ describe Auth::SignOutHandler do
 
   describe "#post" do
     it "signs out any authenticated user as expected" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:sign_out")
 

@@ -12,7 +12,7 @@ describe Auth::PasswordUpdateHandler do
     end
 
     it "shows the update password page of the authenticated user" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_update")
 
@@ -26,7 +26,7 @@ describe Auth::PasswordUpdateHandler do
 
   describe "#post" do
     it "redirects to the sign in page if the user is not authenticated" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_update")
 
@@ -41,7 +41,7 @@ describe Auth::PasswordUpdateHandler do
     end
 
     it "redirects to the profile page after successfully updating the current users password" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_update")
 
@@ -60,7 +60,7 @@ describe Auth::PasswordUpdateHandler do
     end
 
     it "renders the form if the form data is invalid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_update")
 

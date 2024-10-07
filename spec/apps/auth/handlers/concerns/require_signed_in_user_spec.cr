@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::RequireSignedInUser do
   describe "#process_dispatch" do
     it "generates the expected redirect response if the current user is not signed in" do
-      create_user(email: "test@example.com", password: "insecure")
+      create_user(email: "test@dit.gov.krd", password: "insecure")
 
       request = Marten::HTTP::Request.new(method: "GET", resource: "/test/xyz")
 
@@ -15,7 +15,7 @@ describe Auth::RequireSignedInUser do
     end
 
     it "does not redirect if the user is signed in" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       request = Marten::HTTP::Request.new(method: "GET", resource: "/test/xyz")
       request.session = Marten::HTTP::Session::Store::Cookie.new("sessionkey")

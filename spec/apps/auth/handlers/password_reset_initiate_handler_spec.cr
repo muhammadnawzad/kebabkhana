@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Auth::PasswordResetInitiateHandler do
   describe "#get" do
     it "redirects to the profile page if the user is already authenticated" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_reset_initiate")
 
@@ -33,7 +33,7 @@ describe Auth::PasswordResetInitiateHandler do
     end
 
     it "sends a password reset email and redirects to the sign in page if the form data is valid" do
-      user = create_user(email: "test@example.com", password: "insecure")
+      user = create_user(email: "test@dit.gov.krd", password: "insecure")
 
       url = Marten.routes.reverse("auth:password_reset_initiate")
       response = Marten::Spec.client.post(url, data: {"email" => user.email})
