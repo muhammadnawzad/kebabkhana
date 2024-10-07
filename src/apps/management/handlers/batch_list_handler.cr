@@ -3,7 +3,6 @@ module Management
     property active_nav_item : String = "batches"
 
     include Auth::RequireSignedInUser
-    include Auth::RequireAdminUser
     include NavItemActivateable
 
     before_render :add_total_pages_to_context

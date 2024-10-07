@@ -3,7 +3,6 @@ module Management
     property active_nav_item : String = "items"
 
     include Auth::RequireSignedInUser
-    include Auth::RequireAdminUser
     include NavItemActivateable
 
     template_name "item/list.html"

@@ -6,15 +6,18 @@
 
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Batches</h1>
+      {% if request.user.admin? %}
       <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm" href="{% url 'management:create_batch' %}">
         + New
       </a>
+      {% endif %}
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for batch in records %}
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
-
+        
+        {% if request.user.admin? %}
         <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_batch' pk: batch.id %}"
           enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
@@ -32,6 +35,7 @@
             {% endif %}
           </button>
         </form>
+        {% endif %}
 
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ batch.name }}</h2>
 
@@ -60,7 +64,8 @@
           </span>
         </p>
 
-        <div class="mb-16">
+        <div class="{% if request.user.admin? %}mb-16{% endif %}">
+
           {% if batch.order_count > 0 %}
           <div class="relative overflow-x-auto mb-4">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -105,10 +110,12 @@
           {% endif %}
         </div>
 
+        {% if request.user.admin? %}
         <a href="{% url 'management:update_batch' pk: batch.id %}"
           class="absolute bottom-4 right-4 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-2 rounded-lg text-sm">
           Update
         </a>
+        {% endif %}
       </div>
       {% endfor %}
     </div>

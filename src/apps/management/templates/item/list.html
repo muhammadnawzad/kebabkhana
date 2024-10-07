@@ -4,22 +4,21 @@
 <section class="bg-gray-50 dark:bg-gray-900">
   <div class="max-w-screen-lg mx-auto py-8 px-6">
 
-    <!-- Page Title and Create Button -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Items</h1>
-      <!-- Modal Trigger Button -->
+      {% if request.user.admin? %}
       <a class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg text-sm"
         href="{% url 'management:create_item' %}">
         + New
       </a>
+      {% endif %}
     </div>
 
-    <!-- Items List -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for item in records %}
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative">
 
-        <!-- Toggle Available/Unavailable Form -->
+        {% if request.user.admin? %}
         <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_item' pk: item.id %}"
           enctype="multipart/form-data" novalidate>
           <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
@@ -27,7 +26,6 @@
           <input type="hidden" name="status" value="{% if item.available? %}unavailable{% else %}available{% endif %}">
           <button type="submit">
             {% if item.available? %}
-            <!-- Trash Icon to make it unavailable -->
             <svg class="w-6 h-6 text-red-600 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
               viewBox="0 0 24 24">
               <path fill-rule="evenodd"
@@ -35,7 +33,6 @@
                 clip-rule="evenodd" />
             </svg>
             {% else %}
-            <!-- Undo Icon to make it available -->
             <svg class="w-6 h-6 text-green-600 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none"
               viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -44,8 +41,8 @@
             {% endif %}
           </button>
         </form>
+        {% endif %}
 
-        <!-- Item Information -->
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ item.name }}</h2>
         <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
           Status:
@@ -56,20 +53,19 @@
           {% endif %}
         </p>
 
-        <!-- Price -->
         <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
           Price: <span class="font-bold">{{ item.price }} IQD</span>
         </p>
 
-        <!-- Update Button -->
+        {% if request.user.admin? %}
         <a href="{% url 'management:update_item' pk: item.id %}"
           class="inline-block w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 text-center rounded-lg text-sm">
           Update
         </a>
+        {% endif %}
       </div>
       {% endfor %}
     </div>
-
   </div>
 </section>
 
