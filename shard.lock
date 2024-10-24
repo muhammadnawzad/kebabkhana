@@ -16,6 +16,10 @@ shards:
     git: https://github.com/gdotdesign/cr-dotenv.git
     version: 1.0.0
 
+  email:
+    git: https://github.com/arcage/crystal-email.git
+    version: 0.7.1
+
   i18n:
     git: https://github.com/crystal-i18n/i18n.git
     version: 0.2.1
@@ -27,6 +31,10 @@ shards:
   marten_auth:
     git: https://github.com/martenframework/marten-auth.git
     version: 0.2.1
+
+  marten_smtp_emailing:
+    git: https://github.com/martenframework/marten-smtp-emailing.git
+    version: 0.1.1
 
   msgpack:
     git: https://github.com/crystal-community/msgpack-crystal.git

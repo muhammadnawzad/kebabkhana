@@ -8,7 +8,7 @@ Marten.configure do |config|
   # https://martenframework.com/docs/development/reference/settings#installed_apps
   config.installed_apps = [
     Auth::App,
-    Management::App
+    Management::App,
   ]
 
   # Application middlewares
@@ -31,6 +31,19 @@ Marten.configure do |config|
     db.user = "postgres"
     db.password = "postgres"
     db.port = 5432
+  end
+
+  # Emailing Settings
+  config.emailing.from_address = "support@kebabkhana.online"
+  Marten.configure do |config|
+    config.emailing.backend = MartenSMTPEmailing::Backend.new(
+      host: "smtppro.zoho.com",
+      port: 587,
+      helo_domain: "kebabkhana.online",
+      use_tls: true,
+      username: ENV["ZOHO__EMAIL"],
+      password: ENV["ZOHO__PASSWORD"]
+    )
   end
 
   # Templates context producers

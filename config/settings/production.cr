@@ -19,11 +19,7 @@ Marten.configure :production do |config|
   
   # Middlewares Settings
   config.middleware.unshift(Marten::Middleware::AssetServing)
-
-  # Emailing Settings
-  config.emailing.from_address = "noreply@kebabkhana.com"
-  config.emailing.backend = Marten::Emailing::Backend::Development.new(print_emails: true)
-
+  
   # Database Settings
   if ENV.has_key?("DATABASE__URL")
     config.database do |db|

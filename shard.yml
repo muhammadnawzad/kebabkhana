@@ -12,6 +12,8 @@ dependencies:
     github: will/crystal-pg
   dotenv:
     github: gdotdesign/cr-dotenv
+  marten_smtp_emailing:
+    github: martenframework/marten-smtp-emailing
 
 development_dependencies:
   ameba:
