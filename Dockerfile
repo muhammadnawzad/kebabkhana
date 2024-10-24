@@ -32,9 +32,13 @@ RUN shards install
 RUN --mount=type=secret,id=DATABASE__URL \
     --mount=type=secret,id=SELF__ALLOWED_HOSTS \
     --mount=type=secret,id=SELF__SECRET_KEY_BASE \
+    --mount=type=secret,id=ZOHO__EMAIL \
+    --mount=type=secret,id=ZOHO__PASSWORD \
     DATABASE__URL=$(cat /run/secrets/DATABASE__URL) \
     SELF__ALLOWED_HOSTS=$(cat /run/secrets/SELF__ALLOWED_HOSTS) \
     SELF__SECRET_KEY_BASE=$(cat /run/secrets/SELF__SECRET_KEY_BASE) \
+    ZOHO__EMAIL=$(cat /run/secrets/ZOHO__EMAIL) \
+    ZOHO__PASSWORD=$(cat /run/secrets/ZOHO__PASSWORD) \
     bin/marten collectassets --no-input
 
 # Compile the Crystal application

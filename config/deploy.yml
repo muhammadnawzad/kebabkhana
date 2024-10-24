@@ -34,6 +34,8 @@ builder:
     - SELF__ALLOWED_HOSTS
     - SELF__SECRET_KEY_BASE
     - DATABASE__URL
+    - ZOHO__EMAIL
+    - ZOHO__PASSWORD
 
 env:
   secret:
@@ -48,6 +50,8 @@ env:
     - SELF__URL
     - SELF__ALLOWED_HOSTS
     - SELF__SECRET_KEY_BASE
+    - ZOHO__EMAIL
+    - ZOHO__PASSWORD
 
 accessories:
   postgres:
