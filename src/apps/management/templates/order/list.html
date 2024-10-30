@@ -32,7 +32,7 @@
           {% include "/order/delete.html" with order=order %}
           {% endif %}
 
-          {% if order.unpaid? && order.is_not_from_latest_batch? %}
+          {% if request.user.admin? && order.unpaid? && order.is_not_from_latest_batch? %}
             <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_order' pk: order.id %}"
               enctype="multipart/form-data" novalidate>
               <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
