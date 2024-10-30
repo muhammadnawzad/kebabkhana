@@ -70,6 +70,18 @@ class Order < Marten::Model
     status == "paid"
   end
 
+  def unpaid? : Bool
+    !paid?
+  end
+
+  def is_from_latest_batch? : Bool
+    batch == Batch.last!
+  end
+
+  def is_not_from_latest_batch? : Bool
+    !is_from_latest_batch?
+  end
+
   # Class methods
   def self.statuses : Array(String)
     ["paid", "unpaid"]
