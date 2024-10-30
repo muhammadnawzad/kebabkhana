@@ -17,7 +17,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for order in records %}
         <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md max-w-md relative {% if order.paid? %}border-l-4 border-green-200 dark:border-green-700{% else %}border-l-4 border-red-200 dark:border-red-700{% endif %}">
-          {% if request.user.admin? %}
+          {% if request.user.admin? && order.is_from_latest_batch? %}
           <button data-modal-target="popup-modal-{{ order.id }}" data-modal-toggle="popup-modal-{{ order.id }}"
               class="absolute top-5 right-3 block text-red-600 hover:text-red-800 dark:text-red-700 dark:hover:text-red-500"
               type="button">
@@ -30,9 +30,10 @@
           </button>
 
           {% include "/order/delete.html" with order=order %}
+          {% endif %}
 
           {% if order.unpaid? && order.is_not_from_latest_batch? %}
-            <form class="absolute top-5 right-12" method="post" action="{% url 'management:update_order' pk: order.id %}"
+            <form class="absolute top-5 right-3" method="post" action="{% url 'management:update_order' pk: order.id %}"
               enctype="multipart/form-data" novalidate>
               <input type="hidden" name="csrftoken" value="{% csrf_token %}" />
               <input type="hidden" name="name" value="{{ order.name }}">
@@ -45,7 +46,6 @@
                 </svg>
               </button>
             </form>
-          {% endif %}
           {% endif %}
 
           <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2 truncate w-2/3">
