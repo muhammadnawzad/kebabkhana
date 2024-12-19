@@ -6,6 +6,7 @@ module Auth
     template_name "auth/sign_up.html"
     success_route_name "auth:profile"
 
+    before_dispatch :redirect_to_signup
     after_successful_schema_validation :sign_up_user
 
     private def sign_up_user
@@ -35,6 +36,11 @@ module Auth
       else
         "nursery"
       end
+    end
+
+    private def redirect_to_signup
+      flash[:notice] = "Signing up is currently disabled. If you are a DIT member, please contact the administrator for assistance."
+      redirect reverse("auth:sign_in")
     end
   end
 end
