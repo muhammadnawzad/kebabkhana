@@ -11,6 +11,10 @@ module Auth
         redirect reverse("auth:sign_in")
       end
 
+      if request.user? && !request.user.try(&.is_phone_verified) && request.path != "/auth/verify-phone" && request.path != "/auth/verify-otp"
+        flash[:error] = "Please verify your phone number to help us keep your account safe."
+      end
+
       redirect reverse("auth:sign_in") unless request.user?
     end
   end

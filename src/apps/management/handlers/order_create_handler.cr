@@ -28,6 +28,7 @@ module Management
 
       context["items"] = Item.available
       context["has_already_ordered"] = has_already_ordered
+      context["user_not_verified"] = request.user!.is_phone_verified == false
     end
 
     private def set_defaults

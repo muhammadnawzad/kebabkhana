@@ -1,4 +1,5 @@
 require "./emails/**"
+require "./services/**"
 require "./handlers/**"
 require "./models/**"
 require "./routes"

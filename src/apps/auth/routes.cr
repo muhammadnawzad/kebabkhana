@@ -7,5 +7,7 @@ module Auth
     path "/reset-password/initiate", PasswordResetInitiateHandler, name: "password_reset_initiate"
     path "/reset-password/confirm/<uid:str>/<token:str>", PasswordResetConfirmHandler, name: "password_reset_confirm"
     path "/me", ProfileHandler, name: "profile"
+    path "/verify-phone", VerifyPhoneHandler, name: "verify_phone"
+    path "/verify-otp", VerifyOtpHandler, name: "verify_otp"
   end
 end
