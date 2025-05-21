@@ -9,7 +9,7 @@ module Auth
     field :team, :string, max_size: 128, default: "dev"
     field :phone_number, :string, max_size: 128, default: ""
     field :is_phone_verified, :bool, default: false
-    field :phone_verification_challenge, :string, max_size: 128, default: ""
+    field :phone_verification_challenge, :string, max_size: 128, default: "", blank: true
 
     # Validations
     validate :must_have_dit_issued_email
@@ -80,6 +80,7 @@ module Auth
       verified = otp_service.verify_otp(phone_verification_challenge || "", otp)
 
       self.is_phone_verified = verified
+      self.phone_verification_challenge = ""
       verified
     end
 
