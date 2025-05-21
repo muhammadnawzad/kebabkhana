@@ -36,6 +36,9 @@ builder:
     - DATABASE__URL
     - ZOHO__EMAIL
     - ZOHO__PASSWORD
+    - OTP__BASE_URL
+    - OTP__API_KEY
+    - OTP__SERVICE_ID
 
 env:
   secret:
@@ -52,6 +55,9 @@ env:
     - SELF__SECRET_KEY_BASE
     - ZOHO__EMAIL
     - ZOHO__PASSWORD
+    - OTP__BASE_URL
+    - OTP__API_KEY
+    - OTP__SERVICE_ID
 
 accessories:
   postgres:

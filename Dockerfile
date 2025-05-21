@@ -34,11 +34,17 @@ RUN --mount=type=secret,id=DATABASE__URL \
     --mount=type=secret,id=SELF__SECRET_KEY_BASE \
     --mount=type=secret,id=ZOHO__EMAIL \
     --mount=type=secret,id=ZOHO__PASSWORD \
+    --mount=type=secret,id=OTP__BASE_URL \
+    --mount=type=secret,id=OTP__API_KEY \
+    --mount=type=secret,id=OTP__SERVICE_ID \
     DATABASE__URL=$(cat /run/secrets/DATABASE__URL) \
     SELF__ALLOWED_HOSTS=$(cat /run/secrets/SELF__ALLOWED_HOSTS) \
     SELF__SECRET_KEY_BASE=$(cat /run/secrets/SELF__SECRET_KEY_BASE) \
     ZOHO__EMAIL=$(cat /run/secrets/ZOHO__EMAIL) \
     ZOHO__PASSWORD=$(cat /run/secrets/ZOHO__PASSWORD) \
+    OTP__BASE_URL=$(cat /run/secrets/OTP__BASE_URL) \
+    OTP__API_KEY=$(cat /run/secrets/OTP__API_KEY) \
+    OTP__SERVICE_ID=$(cat /run/secrets/OTP__SERVICE_ID) \
     bin/marten collectassets --no-input
 
 # Compile the Crystal application
