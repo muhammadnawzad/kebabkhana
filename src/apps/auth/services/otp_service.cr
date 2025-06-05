@@ -6,7 +6,7 @@ class Auth::OTPService
   property remote_response : JSON::Any = JSON::Any.new({} of String => JSON::Any)
 
   def initialize(locale : String = "en")
-    @base_url = ENV.fetch("OTP__BASE_URL", "")
+    @base_url = ENV.fetch("KEBABKHANA__OTP__BASE_URL", "")
     @locale = locale
   end
 
@@ -16,13 +16,13 @@ class Auth::OTPService
       @base_url,
       headers: HTTP::Headers{
         "Content-Type" => "application/json",
-        "X-Api-Key" => ENV.fetch("OTP__API_KEY", "")
+        "X-Api-Key" => ENV.fetch("KEBABKHANA__OTP__API_KEY", "")
       },
       body: {
         to: "+964#{phone_number}",
         locale: @locale,
         externalId: Digest::SHA256.hexdigest(state),
-        serviceId: ENV.fetch("OTP__SERVICE_ID", "")
+        serviceId: ENV.fetch("KEBABKHANA__OTP__SERVICE_ID", "")
       }.to_json
     )
 
@@ -45,7 +45,7 @@ class Auth::OTPService
       "#{@base_url}/#{challenge_id}/verify",
       headers: HTTP::Headers{
         "Content-Type" => "application/json",
-        "X-Api-Key" => ENV.fetch("OTP__API_KEY", "")
+        "X-Api-Key" => ENV.fetch("KEBABKHANA__OTP__API_KEY", "")
       },
       body: {
         code: otp

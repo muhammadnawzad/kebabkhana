@@ -41,8 +41,8 @@ Marten.configure do |config|
       port: 587,
       helo_domain: "kebabkhana.online",
       use_tls: true,
-      username: ENV["ZOHO__EMAIL"],
-      password: ENV["ZOHO__PASSWORD"]
+      username: ENV["KEBABKHANA__ZOHO__EMAIL"],
+      password: ENV["KEBABKHANA__ZOHO__PASSWORD"]
     )
   end
 
