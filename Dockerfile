@@ -29,22 +29,22 @@ RUN pnpm run build
 RUN shards install
 
 # Collect assets (assumes you are using marten's collectassets command)
-RUN --mount=type=secret,id=DATABASE__URL \
-    --mount=type=secret,id=SELF__ALLOWED_HOSTS \
-    --mount=type=secret,id=SELF__SECRET_KEY_BASE \
-    --mount=type=secret,id=ZOHO__EMAIL \
-    --mount=type=secret,id=ZOHO__PASSWORD \
-    --mount=type=secret,id=OTP__BASE_URL \
-    --mount=type=secret,id=OTP__API_KEY \
-    --mount=type=secret,id=OTP__SERVICE_ID \
-    DATABASE__URL=$(cat /run/secrets/DATABASE__URL) \
-    SELF__ALLOWED_HOSTS=$(cat /run/secrets/SELF__ALLOWED_HOSTS) \
-    SELF__SECRET_KEY_BASE=$(cat /run/secrets/SELF__SECRET_KEY_BASE) \
-    ZOHO__EMAIL=$(cat /run/secrets/ZOHO__EMAIL) \
-    ZOHO__PASSWORD=$(cat /run/secrets/ZOHO__PASSWORD) \
-    OTP__BASE_URL=$(cat /run/secrets/OTP__BASE_URL) \
-    OTP__API_KEY=$(cat /run/secrets/OTP__API_KEY) \
-    OTP__SERVICE_ID=$(cat /run/secrets/OTP__SERVICE_ID) \
+RUN --mount=type=secret,id=KEBABKHANA__DATABASE__URL \
+    --mount=type=secret,id=KEBABKHANA__SELF__ALLOWED_HOSTS \
+    --mount=type=secret,id=KEBABKHANA__SELF__SECRET_KEY_BASE \
+    --mount=type=secret,id=KEBABKHANA__ZOHO__EMAIL \
+    --mount=type=secret,id=KEBABKHANA__ZOHO__PASSWORD \
+    --mount=type=secret,id=KEBABKHANA__OTP__BASE_URL \
+    --mount=type=secret,id=KEBABKHANA__OTP__API_KEY \
+    --mount=type=secret,id=KEBABKHANA__OTP__SERVICE_ID \
+    KEBABKHANA__DATABASE__URL=$(cat /run/secrets/KEBABKHANA__DATABASE__URL) \
+    KEBABKHANA__SELF__ALLOWED_HOSTS=$(cat /run/secrets/KEBABKHANA__SELF__ALLOWED_HOSTS) \
+    KEBABKHANA__SELF__SECRET_KEY_BASE=$(cat /run/secrets/KEBABKHANA__SELF__SECRET_KEY_BASE) \
+    KEBABKHANA__ZOHO__EMAIL=$(cat /run/secrets/KEBABKHANA__ZOHO__EMAIL) \
+    KEBABKHANA__ZOHO__PASSWORD=$(cat /run/secrets/KEBABKHANA__ZOHO__PASSWORD) \
+    KEBABKHANA__OTP__BASE_URL=$(cat /run/secrets/KEBABKHANA__OTP__BASE_URL) \
+    KEBABKHANA__OTP__API_KEY=$(cat /run/secrets/KEBABKHANA__OTP__API_KEY) \
+    KEBABKHANA__OTP__SERVICE_ID=$(cat /run/secrets/KEBABKHANA__OTP__SERVICE_ID) \
     bin/marten collectassets --no-input
 
 # Compile the Crystal application
