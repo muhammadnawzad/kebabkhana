@@ -8,7 +8,7 @@ ssh:
 servers:
   web:
     hosts:
-      - 142.132.228.173
+      - 188.245.127.20
 
 deploy_timeout: 60
 drain_timeout: 30
@@ -24,51 +24,46 @@ proxy:
 
 registry:
   username:
-    - KAMAL__REGISTRY_USERNAME
+    - KEBABKHANA__KAMAL__REGISTRY_USERNAME
   password:
-    - KAMAL__REGISTRY_PASSWORD
+    - KEBABKHANA__KAMAL__REGISTRY_PASSWORD
 
 builder:
   arch: amd64
   secrets:
-    - SELF__ALLOWED_HOSTS
-    - SELF__SECRET_KEY_BASE
-    - DATABASE__URL
-    - ZOHO__EMAIL
-    - ZOHO__PASSWORD
-    - OTP__BASE_URL
-    - OTP__API_KEY
-    - OTP__SERVICE_ID
+    - KEBABKHANA__SELF__ALLOWED_HOSTS
+    - KEBABKHANA__SELF__SECRET_KEY_BASE
+    - KEBABKHANA__DATABASE__URL
+    - KEBABKHANA__ZOHO__EMAIL
+    - KEBABKHANA__ZOHO__PASSWORD
+    - KEBABKHANA__OTP__BASE_URL
+    - KEBABKHANA__OTP__API_KEY
+    - KEBABKHANA__OTP__SERVICE_ID
 
 env:
   secret:
-    - DATABASE__URL
-    - KAMAL__REGISTRY_PASSWORD
-    - KAMAL__REGISTRY_USERNAME
-    - POSTGRES_PASSWORD
-    - POSTGRES_USER
-    - POSTGRES_DB
-    - POSTGRES_HOST
-    - POSTGRES_DATABASE
-    - SELF__URL
-    - SELF__ALLOWED_HOSTS
-    - SELF__SECRET_KEY_BASE
-    - ZOHO__EMAIL
-    - ZOHO__PASSWORD
-    - OTP__BASE_URL
-    - OTP__API_KEY
-    - OTP__SERVICE_ID
+    - KEBABKHANA__DATABASE__URL
+    - KEBABKHANA__KAMAL__REGISTRY_PASSWORD
+    - KEBABKHANA__KAMAL__REGISTRY_USERNAME
+    - KEBABKHANA__SELF__URL
+    - KEBABKHANA__SELF__ALLOWED_HOSTS
+    - KEBABKHANA__SELF__SECRET_KEY_BASE
+    - KEBABKHANA__ZOHO__EMAIL
+    - KEBABKHANA__ZOHO__PASSWORD
+    - KEBABKHANA__OTP__BASE_URL
+    - KEBABKHANA__OTP__API_KEY
+    - KEBABKHANA__OTP__SERVICE_ID
 
-accessories:
-  postgres:
-    image: postgres:16
-    role: web
-    env:
-      secret:
-        - POSTGRES_PASSWORD
-        - POSTGRES_USER
-        - POSTGRES_DB
-    files:
-      - config/init.sql:/docker-entrypoint-initdb.d/setup.sql
-    directories:
-      - data:/var/lib/postgresql/data
+# accessories:
+#   postgres:
+#     image: postgres:16
+#     role: web
+#     env:
+#       secret:
+#         - POSTGRES_PASSWORD
+#         - POSTGRES_USER
+#         - POSTGRES_DB
+#     files:
+#       - config/init.sql:/docker-entrypoint-initdb.d/setup.sql
+#     directories:
+#       - data:/var/lib/postgresql/data
