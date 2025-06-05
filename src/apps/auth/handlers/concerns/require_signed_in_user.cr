@@ -5,6 +5,11 @@ module Auth
     end
 
     private def require_signed_in_user
+
+      MartenAuth.sign_out(request)
+      flash[:error] = "Kebab Day is over, betrayed by its own."
+      redirect reverse("auth:sign_in")
+
       if request.user? && request.user.try(&.inactive?)
         MartenAuth.sign_out(request)
         flash[:error] = "Your account has been deactivated."
