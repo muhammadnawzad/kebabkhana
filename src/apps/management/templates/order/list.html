@@ -64,7 +64,13 @@
             <span
               class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">
                 {% if order.is_from_latest_batch? %}
-                  Today
+                  {% if order.is_from_today? %}
+                    Today
+                  {% elsif order.is_from_yesterday? %}
+                    Yesterday
+                  {% else %}
+                    Recent
+                  {% endif %}
                 {% else %}
                   {{ order.batch.name }}
                 {% endif %}

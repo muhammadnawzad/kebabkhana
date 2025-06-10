@@ -82,6 +82,14 @@ class Order < Marten::Model
     !is_from_latest_batch?
   end
 
+  def is_from_today? : Bool
+    created_at!.day == Time.local.day
+  end
+
+  def is_from_yesterday? : Bool
+    created_at!.day == Time.local.day - 1
+  end
+
   # Class methods
   def self.statuses : Array(String)
     ["paid", "unpaid"]
