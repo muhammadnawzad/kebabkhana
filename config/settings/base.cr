@@ -29,7 +29,7 @@ Marten.configure do |config|
     db.host = "localhost"
     db.name = "kebabkhana_#{Marten.env}"
     db.user = "postgres"
-    db.password = "postgres"
+    db.password = "mysecretpassword"
     db.port = 5432
   end
 
