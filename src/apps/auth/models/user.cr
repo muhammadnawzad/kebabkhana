@@ -12,7 +12,7 @@ module Auth
     field :phone_verification_challenge, :string, max_size: 128, default: "", blank: true
 
     # Validations
-    validate :must_have_dit_issued_email
+    # validate :must_have_dit_issued_email
     validate :role_must_be_valid
     validate :status_must_be_valid
     validate :team_must_be_valid
