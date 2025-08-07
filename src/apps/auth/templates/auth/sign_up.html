@@ -79,7 +79,11 @@
                 <option value="qa" {% if schema.team.value == 'qa' %}selected{% endif %}>QA</option>
                 <option value="devops" {% if schema.team.value == 'devops' %}selected{% endif %}>DevOps</option>
                 <option value="bira" {% if schema.team.value == 'bira' %}selected{% endif %}>BIRA</option>
-                <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other</option>
+                <option value="data_team" {% if schema.team.value == 'data_team' %}selected{% endif %}>Data Team</option>
+                <option value="mobile" {% if schema.team.value == 'mobile' %}selected{% endif %}>Mobile Team</option>
+                <option value="pr_and_social" {% if schema.team.value == 'pr_and_social' %}selected{% endif %}>PR & Social Media Team</option>
+                <option value="uiux" {% if schema.team.value == 'uiux' %}selected{% endif %}>UI/UX Team</option>
+                <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other Teams</option>
             </select>
             {% for error in schema.team.errors %}
             <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>

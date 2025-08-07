@@ -114,11 +114,11 @@ module Auth
     end
 
     def self.teams : Array(String)
-      ["dev", "qa", "devops", "bira", "other"]
+      ["dev", "qa", "devops", "bira", "data_team", "mobile", "pr_and_social", "uiux", "other"]
     end
 
     def self.assigned_focal_points : Array(String)
-      ["nursery", "spaceship", "bira_room"]
+      ["nursery", "spaceship", "data_team", "bira_room", "bira_nursery", "qa_room"]
     end
   end
 end

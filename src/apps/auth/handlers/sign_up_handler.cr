@@ -31,8 +31,18 @@ module Auth
       case team
       when "bira", "other"
         "bira_room"
-      when "qa", "devops"
+      when "devops"
         "spaceship"
+      when "data_team"
+        "data_team"
+      when "mobile"
+        "nursery"
+      when "uiux"
+        "nursery"
+      when "pr_and_social"
+        "bira_room"
+      when "qa"
+        "qa_room"
       else
         "nursery"
       end

@@ -75,7 +75,11 @@
           <option value="qa" {% if schema.team.value == 'qa' %}selected{% endif %}>QA</option>
           <option value="devops" {% if schema.team.value == 'devops' %}selected{% endif %}>DevOps</option>
           <option value="bira" {% if schema.team.value == 'bira' %}selected{% endif %}>BIRA</option>
-          <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other</option>
+          <option value="data_team" {% if schema.team.value == 'data_team' %}selected{% endif %}>Data Team</option>
+          <option value="mobile" {% if schema.team.value == 'mobile' %}selected{% endif %}>Mobile Team</option>
+          <option value="pr_and_social" {% if schema.team.value == 'pr_and_social' %}selected{% endif %}>PR & Social Media Team</option>
+          <option value="uiux" {% if schema.team.value == 'uiux' %}selected{% endif %}>UI/UX Team</option>
+          <option value="other" {% if schema.team.value == 'other' %}selected{% endif %}>Other Teams</option>
       </select>
       {% for error in schema.team.errors %}
       <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
@@ -92,6 +96,9 @@
           <option value="nursery" {% if schema.assigned_focal_point.value == 'nursery' %}selected{% endif %}>Nursery</option>
           <option value="spaceship" {% if schema.assigned_focal_point.value == 'spaceship' %}selected{% endif %}>Spaceship</option>
           <option value="bira_room" {% if schema.assigned_focal_point.value == 'bira_room' %}selected{% endif %}>BIRA Room</option>
+          <option value="bira_nursery" {% if schema.assigned_focal_point.value == 'bira_nursery' %}selected{% endif %}>BIRA Nursery</option>
+          <option value="qa_room" {% if schema.assigned_focal_point.value == 'qa_room' %}selected{% endif %}>QA Room</option>
+          <option value="data_team" {% if schema.assigned_focal_point.value == 'data_team' %}selected{% endif %}>Data Team</option>
       </select>
       {% for error in schema.assigned_focal_point.errors %}
       <p class="m-1 text-sm text-red-600 dark:text-red-400">{{ error.message }}</p>
