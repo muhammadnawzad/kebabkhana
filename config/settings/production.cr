@@ -14,7 +14,7 @@ Marten.configure :production do |config|
 
   # Allow origins
   config.csrf.trusted_origins = [
-    "https://kebabkhana.online"
+    "https://kebabkhana.hamaschwany.dev"
   ]
   
   # Middlewares Settings

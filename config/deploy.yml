@@ -16,7 +16,7 @@ readiness_delay: 30
 
 proxy:
   ssl: true
-  host: kebabkhana.online
+  host: kebabkhana.hamaschwany.dev
   app_port: 3000
   healthcheck:
     interval: 15
