@@ -41,7 +41,7 @@ Marten.configure do |config|
       port: 465,
       helo_domain: "hamaschwany.dev",
       use_tls: true,
-      username: 'resend',
+      username: "resend",
       password: ENV["KEBABKHANA__RESEND__API_KEY"]
     )
   end
