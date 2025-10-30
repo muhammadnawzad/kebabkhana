@@ -38,7 +38,7 @@ Marten.configure do |config|
   Marten.configure do |config|
     config.emailing.backend = MartenSMTPEmailing::Backend.new(
       host: "smtp.resend.com",
-      port: 465,
+      port: 587,
       helo_domain: "hamaschwany.dev",
       use_tls: true,
       username: "resend",
