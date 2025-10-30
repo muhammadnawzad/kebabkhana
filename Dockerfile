@@ -32,16 +32,14 @@ RUN shards install
 RUN --mount=type=secret,id=KEBABKHANA__DATABASE__URL \
     --mount=type=secret,id=KEBABKHANA__SELF__ALLOWED_HOSTS \
     --mount=type=secret,id=KEBABKHANA__SELF__SECRET_KEY_BASE \
-    --mount=type=secret,id=KEBABKHANA__ZOHO__EMAIL \
-    --mount=type=secret,id=KEBABKHANA__ZOHO__PASSWORD \
+    --mount=type=secret,id=KEBABKHANA__RESEND__API_KEY \
     --mount=type=secret,id=KEBABKHANA__OTP__BASE_URL \
     --mount=type=secret,id=KEBABKHANA__OTP__API_KEY \
     --mount=type=secret,id=KEBABKHANA__OTP__SERVICE_ID \
     KEBABKHANA__DATABASE__URL=$(cat /run/secrets/KEBABKHANA__DATABASE__URL) \
     KEBABKHANA__SELF__ALLOWED_HOSTS=$(cat /run/secrets/KEBABKHANA__SELF__ALLOWED_HOSTS) \
     KEBABKHANA__SELF__SECRET_KEY_BASE=$(cat /run/secrets/KEBABKHANA__SELF__SECRET_KEY_BASE) \
-    KEBABKHANA__ZOHO__EMAIL=$(cat /run/secrets/KEBABKHANA__ZOHO__EMAIL) \
-    KEBABKHANA__ZOHO__PASSWORD=$(cat /run/secrets/KEBABKHANA__ZOHO__PASSWORD) \
+    KEBABKHANA__RESEND__API_KEY=$(cat /run/secrets/KEBABKHANA__RESEND__API_KEY) \
     KEBABKHANA__OTP__BASE_URL=$(cat /run/secrets/KEBABKHANA__OTP__BASE_URL) \
     KEBABKHANA__OTP__API_KEY=$(cat /run/secrets/KEBABKHANA__OTP__API_KEY) \
     KEBABKHANA__OTP__SERVICE_ID=$(cat /run/secrets/KEBABKHANA__OTP__SERVICE_ID) \

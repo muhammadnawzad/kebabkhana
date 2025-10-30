@@ -34,15 +34,15 @@ Marten.configure do |config|
   end
 
   # Emailing Settings
-  config.emailing.from_address = "support@kebabkhana.online"
+  config.emailing.from_address = "support@hamaschwany.dev"
   Marten.configure do |config|
     config.emailing.backend = MartenSMTPEmailing::Backend.new(
-      host: "smtppro.zoho.com",
-      port: 587,
-      helo_domain: "kebabkhana.online",
+      host: "smtp.resend.com",
+      port: 465,
+      helo_domain: "hamaschwany.dev",
       use_tls: true,
-      username: ENV["KEBABKHANA__ZOHO__EMAIL"],
-      password: ENV["KEBABKHANA__ZOHO__PASSWORD"]
+      username: 'resend',
+      password: ENV["KEBABKHANA__RESEND__API_KEY"]
     )
   end
 
