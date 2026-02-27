@@ -1,6 +1,6 @@
 # Kebabkhana
 
-> ⚠️ **Repository Archived** ⚠️
+> [!IMPORTANT]
 > This repository is no longer actively maintained. The codebase remains available for reference and historical purposes, but no further updates or support should be expected.
 
 Kebabkhana is a simple web application that allows users to order kebabs online. The application is built using the [Crystal Language](https://github.com/crystal-lang/crystal) and [Marten Framework](https://github.com/martenframework/marten). Creating this application was a fun way to learn Crystal and Marten, and to build something useful for my colleagues at work. This project is not meant to be a production-ready application, but rather a learning exercise and a proof of concept.
